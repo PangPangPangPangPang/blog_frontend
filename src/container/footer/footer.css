@@ -1,0 +1,50 @@
+/**
+ * Created by wangyefeng on 2017-04-25 13:35
+ */
+
+.footer-body {
+  display: flex;
+  /* position: relative; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(27,27,27);
+  color: white;
+  height: 90px;
+  width: 100%;
+}
+
+.footer-white {
+  display: flex;
+  /* position: relative; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(27,27,27);
+  background-color: white;
+  height: 90px;
+  width: 100%;
+}
+
+.footer-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  fill: black;
+}
+
+.footer-icon-white {
+  fill: white;
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+.footer-icon-black {
+  fill: rgb(27,27,27);
+  height: 30px;
+  width: 30px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
