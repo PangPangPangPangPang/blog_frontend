@@ -5,14 +5,13 @@
 import React from 'react'
 import './normal_button.css'
 import PropTypes from 'prop-types'
-
-const homeImg = require('../resource/svg/home.svg')
-const pushpinImg = require('../resource/svg/paper-plane-1.svg')
-const articleImg = require('../resource/svg/notebook-1.svg')
-const aboutImg = require('../resource/svg/user-6.svg')
-const defaultImg = require('../resource/svg/home.svg')
-const weiboImg = require('../resource/svg/weibo.svg')
-const githubImg = require('../resource/svg/github.svg')
+import homeImg from '../img/homeImg'
+import articleImg from '../img/articleImg'
+import aboutImg from '../img/aboutImg'
+import defaultImg from '../img/defaultImg'
+import weiboImg from '../img/weiboImg'
+import githubImg from '../img/githubImg'
+import pushpinImg from '../img/pushpinImg'
 
 
 class NormalButton extends React.Component {
@@ -77,7 +76,7 @@ class NormalButton extends React.Component {
       }
     }
     return (
-      <img className={`normal-button-image ${this.state.imgColor}`} src={Img} />
+      <Img className={`normal-button-image ${this.state.imgColor}`} />
     )
   }
 

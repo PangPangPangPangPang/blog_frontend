@@ -33,6 +33,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "svg-react-loader": "^0.4.6"
+    "@svgr/cli": "^4.1.0"
   }
 }

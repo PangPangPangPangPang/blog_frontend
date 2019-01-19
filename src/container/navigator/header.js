@@ -5,7 +5,7 @@ import React from 'react'
 import { hashHistory } from 'react-router'
 import './header.css'
 import NormalButton from '../../compontent/normal_button'
-import Logo from '../../resource/svg/diamond.svg'
+import Logo from '../../img/logo.js'
 
 class Header extends React.Component {
   constructor(props) {
@@ -52,12 +52,12 @@ class Header extends React.Component {
           <NormalButton title="Article" img={'article'} handleClick={this.clickArticle} />
           <NormalButton title="Contact Me" img={'tag'} handleClick={this.clickTags} />
           <NormalButton title="About Me" img={'about'} handleClick={this.clickAbout} />
+          <Logo className={`header-default-icon ${this.state.iconColor}`} />
         </div>
-        <img src={Logo} alt="" className={`header-default-icon ${this.state.iconColor}`}/>
-    </div>
-  )
+
+      </div>
+    )
+  }
 }
-}
-// <Logo className={`header-default-icon ${this.state.iconColor}`} />
 
 export default Header
