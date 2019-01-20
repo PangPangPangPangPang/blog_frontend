@@ -7,7 +7,6 @@ import { Router, Route, hashHistory, IndexRedirect } from 'react-router'
 import  createLogger  from 'redux-logger'
 import thunk from 'redux-thunk'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Navigator from './container/navigator'
 import reducer from './reducer/reducer'
 import About from './container/about/about'
@@ -28,7 +27,7 @@ function App() {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={Navigator}>
-          <IndexRedirect to="home" />
+          <IndexRedirect to="list" />
           <Route path="home" component={Home} />
           <Route path="about" component={About} />
           <Route path="tag" component={Tag} />
@@ -41,17 +40,3 @@ function App() {
 }
 
 export default App
-// ReactDOM.render((
-  // <Provider store={store}>
-    // <Router history={hashHistory}>
-      // <Route path="/" component={Navigator}>
-        // <IndexRedirect to="home" />
-        // <Route path="home" component={Home} />
-        // <Route path="about" component={About} />
-        // <Route path="tag" component={Tag} />
-        // <Route path="list" component={List} />
-        // <Route path="list/(:id)" component={Article} />
-      // </Route>
-    // </Router>
-  // </Provider>
-// ), document.getElementById('root'))

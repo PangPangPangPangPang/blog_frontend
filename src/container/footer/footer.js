@@ -4,14 +4,15 @@
 
 import React from 'react'
 import './footer.css'
-// import NormalButton from '../../compontent/normal_button'
 import PropTypes from 'prop-types'
+import weiboImg from '../../img/weiboImg'
+import githubImg from '../../img/githubImg'
 
 
-const WeiboImg = require('../../resource/svg/weibo.svg')
-const GithubImg = require('../../resource/svg/github.svg')
 
 const Footer = (props) => {
+  const Weibo = weiboImg
+  const Github = githubImg
   const getClazzName = () => {
     if (props.color === 'white') {
       return 'footer-white'
@@ -37,16 +38,13 @@ const Footer = (props) => {
         Powered by Max.
       </div>
       <div className="footer-icons">
-        <img className={getIconClazz()} src={WeiboImg} />
-        <img className={getIconClazz()} src={GithubImg} />
+        <Weibo className={getIconClazz()} onClick={clickWeibo} />
+        <Github className={getIconClazz()} onClick={clickGithub} />
       </div>
     </div>
   )
 }
 
-// <WeiboImg className={getIconClazz()} onClick={clickWeibo} />
-// <GithubImg className={getIconClazz()} onClick={clickGithub} />
-//
 Footer.propTypes = {
   color: PropTypes.string,
 }
