@@ -59,10 +59,9 @@ renderer.strong = function strong(text) {
 renderer.paragraph = function paragraph(text) {
   return `<div class="article-paragraph">${text}</div>`
 }
-
 renderer.list = function list(body, ordered) {
   var type = ordered ? 'decimal' : 'disc'
-  return `<ul style="list-style-type: ${type}; margin-left: 0px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
+  return `<ul style="list-style-type: ${type}; margin-top: 10px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
 }
 
 renderer.listitem = function listitem(text) {
@@ -71,6 +70,11 @@ renderer.listitem = function listitem(text) {
 
 renderer.blockquote = function em(text) {
   return `<blockquote>${text}</blockquote>`
+}
+
+renderer.codespan = function code(text) {
+  console.log(text)
+  return `<code class="article-codespan">${text}</code>`
 }
 
 class Article extends React.Component {
@@ -97,7 +101,6 @@ class Article extends React.Component {
     return null
   }
   render() {
-    // console.log(this.props.content)
     return (
       <div>
         <div className="article-page">
