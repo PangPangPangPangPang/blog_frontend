@@ -12,6 +12,7 @@ import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import PropTypes from 'prop-types'
+import DevImage from '../../resource/jpg/splatoon.png'
 
 
 const renderer = new marked.Renderer()
@@ -44,14 +45,19 @@ renderer.image = (href, title, text) => {
 	} else {
 		size = '100%';
 	}
-	return (
+  // Use placeholder image in the development environment.
+  if (process.env.NODE_ENV === 'development') {
+    href = DevImage
+  }	return (
 		`<img class="article-img" src="${href}" width="100%" height="auto" alt=${text}/>`
 	)
 };
+
 renderer.heading = function heading(text, level) {
   const font = 30 - (level * 3)
   return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
 }
+
 renderer.strong = function strong(text) {
   return `<strong>${text}</strong>`
 }
@@ -59,6 +65,7 @@ renderer.strong = function strong(text) {
 renderer.paragraph = function paragraph(text) {
   return `<div class="article-paragraph">${text}</div>`
 }
+
 renderer.list = function list(body, ordered) {
   var type = ordered ? 'decimal' : 'disc'
   return `<ul style="list-style-type: ${type}; margin-top: 10px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
