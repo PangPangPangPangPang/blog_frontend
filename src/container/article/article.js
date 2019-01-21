@@ -5,7 +5,7 @@ import React from 'react'
 import marked from 'marked'
 import hl from 'highlight.js'
 import { connect } from 'react-redux'
-import '../../../node_modules/highlight.js/styles/monokai-sublime.css'
+import '../../../node_modules/highlight.js/styles/xcode.css'
 import request from '../../action/request'
 import './article.css'
 import { getStore } from '../../App'
@@ -17,9 +17,6 @@ import PropTypes from 'prop-types'
 const renderer = new marked.Renderer()
 
 marked.setOptions({
-  highlight(code) {
-    return `<div class="article-code" >${hl.highlightAuto(code).value}</div>`
-  },
   renderer,
   gfm: true,
   tables: true,
@@ -30,9 +27,33 @@ marked.setOptions({
   smartypants: true,
 })
 
+renderer.code = (code, language) => {
+  const validLang = !!(language && hl.getLanguage(language));
+  const highlighted = validLang ? hl.highlight(language, code).value : code;
+  return `<pre><code class="article-code hljs ${language}">${highlighted}</code></pre>`;
+};
+
+renderer.image = (href, title, text) => {
+	if (title) {
+		var size = title.split('x');
+		if (size[1]) {
+			size = 'width=' + size[0] + ' height=' + size[1];
+		} else {
+			size = 'width=' + size[0];
+		}
+	} else {
+		size = '100%';
+	}
+	return (
+		`<img class="article-img" src="${href}" width="100%" height="auto" alt=${text}/>`
+	)
+};
 renderer.heading = function heading(text, level) {
-  const font = 24 - (level * 2)
-  return `<div style="font-size: ${font}px;margin-bottom: 10px"><strong>${text}</strong></div>`
+  const font = 30 - (level * 3)
+  return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
+}
+renderer.strong = function strong(text) {
+  return `<strong>${text}</strong>`
 }
 
 renderer.paragraph = function paragraph(text) {
@@ -40,12 +61,12 @@ renderer.paragraph = function paragraph(text) {
 }
 
 renderer.list = function list(body, ordered) {
-  const type = ordered ? 'lower-roman' : 'circle'
-  return `<ul style="list-style-type: ${type}; margin-left: 20px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
+  var type = ordered ? 'decimal' : 'disc'
+  return `<ul style="list-style-type: ${type}; margin-left: 0px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
 }
 
 renderer.listitem = function listitem(text) {
-  return `<li>${text}</li>`
+  return `<li style="margin-bottom: 5px;">${text}</li>`
 }
 
 renderer.blockquote = function em(text) {
@@ -76,12 +97,12 @@ class Article extends React.Component {
     return null
   }
   render() {
+    // console.log(this.props.content)
     return (
       <div>
         <div className="article-page">
           <Loading show={this.props.displayLoading} />
           <div
-            className="article-page"
             dangerouslySetInnerHTML={{ __html: marked(this.props.content) }} />
         </div>
         {this.getFooter()}
