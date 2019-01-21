@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 重新鼓捣博客
+[date] 2019-1-19 16:34:33
+[tag] 日常
 
-## Available Scripts
+想想上次折腾博客已经是两年前的事情了。后来忙于工作（摸鱼）就没有继续维护了。这次也不知道为了啥想把我这年久失修的博客重新跑起来，其实总共包括三件事情。
+1. 重新跑起来后端服务，顺便加上了更新文章的能力。（以前都是要重新上vps手动更新，是在太low了！！！）
+2. 更新前端各种依赖包。（由于之前用的react技术栈，前端圈子的更新真的是跟不上，之前也是直接锁本了。再捡起来项目的时候发现已经跑不起来了，索性就用`create-react-app`重新构建了项目）
+3. 优化了Markdown文件的解析。（其实就是之前偷懒没有好好写，这次~~像素级抄袭~~借鉴github的README重新优化了下，效果不错有了更好的体验）
+4. 把整个项目部署放到docker里（也就是上篇文章做的事情，docker入门之后真的方便。）
 
-In the project directory, you can run:
+### 后端
+重新跑后端就不记录了，之前作死用的`flask+virtualenv+nginx`事实证明不是一个很好的选择，首先是**python**代码不是很容易维护，当初为了玩**python**用了各种语法糖跟各种特性魔法，导致我现在也不是很能看懂了。还有个很严重的问题是我已经完全忘了该怎么本地调试代码了！！！
 
-### `npm start`
+### 前端
+前端的迁移比想象中的轻松很多，是个愉快的过程。
+#### 迁移
+* 利用`create-react-app`构建脚手架应用。
+* 把之前用的依赖库加到`package.json`文件中。（其实是一个个install的，毕竟要更新依赖库）
+* 把旧仓库的源码粘贴到新仓库，然后根据报错开始适配。（编码环境用的这个[插件](https://github.com/neoclide/coc.nvim),强烈推荐**neovim**用户使用！)
+* 代码编译过去之后，发现**svg**不好用了，因为之前配置**babel**的**loader**在编译期把**svg**文件转成**React**组件，不过这个脚手架应用配置**loader**不是很方便。于是找到[这个东西](https://github.com/smooth-code/svgr)，手动转换一下。
+* 优化**Markdown**解析，主要优化点：
+  1. 美化了**blockquote**。（必须得说以前的太丑了，我是怎么忍受的！）
+  2. 优化了**code**。（该成了浅色背景，看起来跟和谐）
+  3. 给**header**加了下分割线。（借鉴了**github**，看起来跟整齐有条例）
+  4. 修正了**image**的展现。
+  5. 优化了**listitem**。
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### 备忘
+这部份备忘一些基本命令，省得以后又忘惹。
+* **npm install**：安装依赖。（有时候直接运行会报错，有可能是配置有更新，但是没有安装。设备多没办法~~~）
+* **npm install xxx --save**：安装xxx依赖，并且配置会写入**package.json**文件。
+* **npm install xxx --save-dev**：安装xxx依赖，并且配置会写入**package.json**文件。(注意这些依赖是用在开发中的，比如说[这个插件](https://github.com/smooth-code/svgr)只会再开发期间用于转换**svg**而并不需要打到包中)
+* **npm start**：运行程序。（debug用，具体的命令配置也在**package.json**中，可以自己看看）
+* **npm run-script build/yarn build**：构建应用，构建的结果放在**./build**目录中。
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+> 我知道这些都是最基本的命令，不要吐槽我！真的是备忘而已！！
 
-### `npm test`
+### Flag
+新的一年要做的功能是个博客加上评论功能。初步定的技术栈是**Go**，原因有几个：
+1. 容易部署
+2. 依赖容易维护
+3. 好玩，能做的事情多。
+4. 最重要的是！看完一**Go**本书！不能白看啊！
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
