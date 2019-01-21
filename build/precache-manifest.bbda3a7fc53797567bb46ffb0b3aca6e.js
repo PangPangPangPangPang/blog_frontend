@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/static/media/splatoon.6c86f617.png"
   },
   {
-    "revision": "b9458f51076463e6e3ff28a6ee1ccd27",
+    "revision": "c274f4cce66ae3656ed965cb33dfb5e6",
     "url": "/index.html"
   }
 ];
