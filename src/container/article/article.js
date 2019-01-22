@@ -48,8 +48,9 @@ renderer.image = (href, title, text) => {
   // Use placeholder image in the development environment.
   if (process.env.NODE_ENV === 'development') {
     href = DevImage
-  }	return (
-		`<img class="article-img" src="${href}" width="100%" height="auto" alt=${text}/>`
+  }
+  return (
+		`<img onclick="window.open(this.src)" class="article-img" src="${href}" width="100%" height="auto" alt=${text}/>`
 	)
 };
 
@@ -68,15 +69,15 @@ renderer.paragraph = function paragraph(text) {
 
 renderer.list = function list(body, ordered) {
   var type = ordered ? 'decimal' : 'disc'
-  return `<ul style="list-style-type: ${type}; margin-top: 10px; font-size: 15px; margin-bottom: 20px;">${body}</ul>`
+  return `<ul style="list-style-type: ${type}; margin-top: 0.6em; font-size: 15px; margin-bottom: 1.3em;">${body}</ul>`
 }
 
 renderer.listitem = function listitem(text) {
-  return `<li style="margin-bottom: 5px;">${text}</li>`
+  return `<li style="margin-bottom: 0.3em;">${text}</li>`
 }
 
 renderer.blockquote = function em(text) {
-  return `<blockquote>${text}</blockquote>`
+  return `<blockquote class='article-blockquote'>${text}</blockquote>`
 }
 
 renderer.codespan = function code(text) {

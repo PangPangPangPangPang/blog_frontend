@@ -47,3 +47,13 @@
 .article-head {
   border-bottom: 1px solid #eee;
 }
+
+.article-blockquote {
+  display: block;
+  border-left: 0.3em solid #eee;
+  padding: 0em 1.5em 0em 1em;
+  margin: 1.5em 0;
+  position: relative;
+  background-color: white;
+  color: #666;
+}

@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "2a3eb2777047d5eb9405",
-    "url": "/static/css/main.2b2bf4be.chunk.css"
+    "revision": "de24a0e4cb7dca524729",
+    "url": "/static/css/main.073a0a81.chunk.css"
   },
   {
-    "revision": "2a3eb2777047d5eb9405",
-    "url": "/static/js/main.2a3eb277.chunk.js"
+    "revision": "de24a0e4cb7dca524729",
+    "url": "/static/js/main.de24a0e4.chunk.js"
   },
   {
     "revision": "9000bdcf72cbc60310c2",
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/static/media/splatoon.6c86f617.png"
   },
   {
-    "revision": "c274f4cce66ae3656ed965cb33dfb5e6",
+    "revision": "1ea9b45b118a2356963de67a465adeb4",
     "url": "/index.html"
   }
 ];
