@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(27,27,27);
+  background-color: #1C1C1C;
   color: white;
   height: 90px;
   width: 100%;
@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgb(27,27,27);
+  color: #1C1C1C;
   background-color: white;
   height: 90px;
   width: 100%;
@@ -31,7 +31,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  fill: black;
+  fill: #1C1C1C;
 }
 
 .footer-icon-white {
@@ -42,7 +42,7 @@
   margin-top: 10px;
 }
 .footer-icon-black {
-  fill: rgb(27,27,27);
+  fill: #1C1C1C;
   height: 30px;
   width: 30px;
   margin-right: 20px;

@@ -67,13 +67,21 @@ class List extends React.Component {
 
 function mapStateToProps(state) {
   const getShow = () => {
-    if (state.request.list) {
+    if (state.request.articles) {
       return 0
     }
     return 1
   }
+
+  const getList = () => {
+    if (state.request.articles) {
+      return state.request.articles.list
+    }
+    return []
+
+  }
   return {
-    list: state.request.list ? state.request.list.res : [],
+    list: getList(),
     displayLoading: getShow(),
   }
 }

@@ -6,21 +6,21 @@
 	align-items: center;
   padding:10px;
   margin: 10px;
-	background-color: rgb(27,27,27);
+	background-color: #1C1C1C;
   border-style: none;
   border-color: white;
 }
 .normal-button-animation {
   transition: 1s ease;
   background-color: white;
-  border-color: rgb(27,27,27);
+  border-color: #1C1C1C;
   
   /* fill: black; */
 }
 
 .normal-button-animation-back {
 	transition: 1s ease;
-  background-color: rgb(27,27,27);
+  background-color: #1C1C1C;
   border-color: white;
 }
 
@@ -31,7 +31,7 @@
 }
 .normal-button-image-animation {
   transition: 1s ease;
-  fill: rgb(27,27,27);
+  fill: #1C1C1C;
 }
 
 .normal-button-image-animation-back {
@@ -40,7 +40,7 @@
 }
 
 .normal-button-title {
-  background-color: rgb(27,27,27);
+  background-color: #1C1C1C;
   margin-left: 10px;
   color: white;
   font-weight: bold;
@@ -48,11 +48,11 @@
 .normal-button-title-animation {
   transition: 1s ease;
   background-color: white;
-  color: rgb(27,27,27);
+  color: #1C1C1C;
 }
 .normal-button-title-animation-back {
   transition: 1s ease;
-  background-color: rgb(27,27,27);
+  background-color: #1C1C1C;
   color: white;
 }
 .normal-button:hover {

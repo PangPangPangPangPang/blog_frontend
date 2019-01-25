@@ -48,10 +48,10 @@ class Header extends React.Component {
     return (
       <div className="header-base">
         <div className={`header-default ${this.state.backgroundColor}`} >
-          <NormalButton title="Home Page" img={'home'} handleClick={this.clickHome} />
-          <NormalButton title="Article" img={'article'} handleClick={this.clickArticle} />
-          <NormalButton title="Contact Me" img={'tag'} handleClick={this.clickTags} />
-          <NormalButton title="About Me" img={'about'} handleClick={this.clickAbout} />
+          <NormalButton title="首页" img={'home'} handleClick={this.clickHome} />
+          <NormalButton title="文章" img={'article'} handleClick={this.clickArticle} />
+          <NormalButton title="标签" img={'tag'} handleClick={this.clickTags} />
+          <NormalButton title="关于" img={'about'} handleClick={this.clickAbout} />
           <Logo className={`header-default-icon ${this.state.iconColor}`} />
         </div>
 

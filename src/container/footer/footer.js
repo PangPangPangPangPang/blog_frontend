@@ -49,7 +49,7 @@ Footer.propTypes = {
   color: PropTypes.string,
 }
 Footer.defaultProps = {
-  color: 'black',
+  color: '#1C1C1C',
 }
 
 export default Footer

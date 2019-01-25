@@ -54,9 +54,15 @@ renderer.image = (href, title, text) => {
 	)
 };
 
+var articleObject
 renderer.heading = function heading(text, level) {
   const font = 30 - (level * 3)
-  return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
+  if (level === 1) {
+    return `<div><div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div><div>${articleObject.tags}</div></div>`
+  } else {
+    return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
+
+  }
 }
 
 renderer.strong = function strong(text) {
@@ -81,7 +87,6 @@ renderer.blockquote = function em(text) {
 }
 
 renderer.codespan = function code(text) {
-  console.log(text)
   return `<code class="article-codespan">${text}</code>`
 }
 
@@ -109,6 +114,8 @@ class Article extends React.Component {
     return null
   }
   render() {
+    articleObject = this.props.args
+    console.log(this.props.args)
     return (
       <div>
         <div className="article-page">
@@ -125,6 +132,7 @@ class Article extends React.Component {
 Article.propTypes = {
   dispatch: PropTypes.function,
   params: PropTypes.Object,
+  args: PropTypes.Object,
   content: PropTypes.string,
   displayLoading: PropTypes.number,
 }
@@ -132,6 +140,7 @@ Article.propTypes = {
 Article.defaultProps = {
   dispatch: {},
   params: {},
+  args: {},
   content: { res: { content: '' } },
   displayLoading: 1,
 }
@@ -152,9 +161,17 @@ function mapStateToProps(state, ownProps) {
     return ''
   }
 
+  const getArgs = () => {
+    const articleId = ownProps.params.id
+    if (state.request.articles) {
+      return state.request.articles['map'][articleId]
+    }
+    return ''
+  }
   return {
     content: getContent(),
     displayLoading: getShow(),
+    args: getArgs(),
   }
 }
 

@@ -16,7 +16,16 @@ function handleRequestSuccess(state, action) {
   const k = action.query
   switch (k) {
     case 'list':
-      return Object.assign({}, state, { list: action })
+      const articleList = action.res
+      const articles = {}
+      const articleMap = {}
+      articles['list'] = action.res
+      for (let index in articleList) {
+        let id = articleList[index].id
+        articleMap[id] = articleList[index]
+      }
+      articles['map'] = articleMap
+      return Object.assign({}, state, { articles: articles })
     case 'register':
       return Object.assign({}, state, { register: action })
     case 'article':
