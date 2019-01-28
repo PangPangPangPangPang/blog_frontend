@@ -16,10 +16,10 @@ function handleRequestSuccess(state, action) {
   const k = action.query
   switch (k) {
     case 'list':
-      const articleList = action.res
+      const articleList = JSON.parse(action.res.result)
       const articles = {}
       const articleMap = {}
-      articles['list'] = action.res
+      articles['list'] = articleList
       for (let index in articleList) {
         let id = articleList[index].id
         articleMap[id] = articleList[index]
@@ -29,9 +29,10 @@ function handleRequestSuccess(state, action) {
     case 'register':
       return Object.assign({}, state, { register: action })
     case 'article':
-      if (action.res.article_id) {
+      const article = JSON.parse(action.res.result)
+      if (article.id) {
         const obj = {}
-        obj[action.res.article_id] = action
+        obj[article.id] = article
         return Object.assign({}, state, obj)
       }
       return state

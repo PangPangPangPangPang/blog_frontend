@@ -5,8 +5,11 @@
 import Type from './type'
 import { getStore } from '../App'
 
-// const baseUrl = 'http://localhost:8000/'
-const baseUrl = 'http://mmmmmax.cn/'
+let baseUrl = 'http://localhost:8080/'
+
+if (process.env.NODE_ENV === 'production') {
+  baseUrl =  'http://mmmmmax.cn/'
+}
 
 function requestAction(type, query, res) {
   return {

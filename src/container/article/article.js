@@ -156,7 +156,7 @@ function mapStateToProps(state, ownProps) {
   const getContent = () => {
     const articleId = ownProps.params.id
     if (state.request[articleId]) {
-      return state.request[articleId].res.content
+      return state.request[articleId].content
     }
     return ''
   }
