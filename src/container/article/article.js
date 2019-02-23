@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import marked from 'marked'
+import PropTypes from 'prop-types'
 import hl from 'highlight.js'
 import { connect } from 'react-redux'
 import '../../../node_modules/highlight.js/styles/xcode.css'
@@ -11,7 +12,6 @@ import './article.css'
 import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
-import PropTypes from 'prop-types'
 import DevImage from '../../resource/jpg/splatoon.png'
 
 
@@ -130,9 +130,9 @@ class Article extends React.Component {
 }
 
 Article.propTypes = {
-  dispatch: PropTypes.function,
-  params: PropTypes.Object,
-  args: PropTypes.Object,
+  dispatch: PropTypes.func,
+  params: PropTypes.object,
+  args: PropTypes.object,
   content: PropTypes.string,
   displayLoading: PropTypes.number,
 }

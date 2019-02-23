@@ -23,7 +23,7 @@ const ToastManager = {
 
 class Toast extends React.Component {
   static propTypes = {
-    manager: PropTypes.obj,
+    manager: PropTypes.object,
   }
   static defaultProps = {
     toastFunc: {},
