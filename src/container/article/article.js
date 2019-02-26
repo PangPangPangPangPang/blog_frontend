@@ -29,40 +29,39 @@ marked.setOptions({
 })
 
 renderer.code = (code, language) => {
-  const validLang = !!(language && hl.getLanguage(language));
-  const highlighted = validLang ? hl.highlight(language, code).value : code;
-  return `<pre><code class="article-code hljs ${language}">${highlighted}</code></pre>`;
-};
+  const validLang = !!(language && hl.getLanguage(language))
+  const highlighted = validLang ? hl.highlight(language, code).value : code
+  return `<pre><code class="article-code hljs ${language}">${highlighted}</code></pre>`
+}
 
 renderer.image = (href, title, text) => {
-	if (title) {
-		var size = title.split('x');
-		if (size[1]) {
-			size = 'width=' + size[0] + ' height=' + size[1];
-		} else {
-			size = 'width=' + size[0];
-		}
-	} else {
-		size = '100%';
-	}
+  let size = title.split('x')
+  if (title) {
+    if (size[1]) {
+      size = `width=${size[0]}height=${size[1]}`
+    } else {
+      size = `width=${size[0]}`
+    }
+  } else {
+    size = '100%'
+  }
   // Use placeholder image in the development environment.
+  let h = href
   if (process.env.NODE_ENV === 'development') {
-    href = DevImage
+    h = DevImage
   }
   return (
-		`<img onclick="window.open(this.src)" class="article-img" src="${href}" width="100%" height="auto" alt=${text}/>`
-	)
-};
+    `<img onclick="window.open(this.src)" class="article-img" src="${h}" width="100%" height="auto" alt=${text}/>`
+  )
+}
 
-var articleObject
+let articleObject
 renderer.heading = function heading(text, level) {
   const font = 30 - (level * 3)
   if (level === 1) {
     return `<div><div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div><div>${articleObject.tags}</div></div>`
-  } else {
-    return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
-
   }
+  return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
 }
 
 renderer.strong = function strong(text) {
@@ -74,7 +73,7 @@ renderer.paragraph = function paragraph(text) {
 }
 
 renderer.list = function list(body, ordered) {
-  var type = ordered ? 'decimal' : 'disc'
+  const type = ordered ? 'decimal' : 'disc'
   return `<ul style="list-style-type: ${type}; margin-top: 0.6em; font-size: 15px; margin-bottom: 1.3em;">${body}</ul>`
 }
 
@@ -95,33 +94,37 @@ class Article extends React.Component {
     super(props)
     this.state = { content: '' }
   }
+
   componentDidMount() {
     window.scrollTo(0, 0)
-    const { dispatch } = this.props
-    const dic = { id: this.props.params.id }
+    const { dispatch, params } = this.props
+    const dic = { id: params.id }
     const store = getStore()
-    if (store.getState().request[this.props.params.id]) {
+    if (store.getState().request[params.id]) {
       return
     }
     dispatch(request('article', dic, 'get'))
   }
+
   getFooter() {
-    if (this.props.displayLoading === 0) {
+    const { displayLoading } = this.props
+    if (displayLoading === 0) {
       return (
         <Footer />
       )
     }
     return null
   }
+
   render() {
-    articleObject = this.props.args
-    console.log(this.props.args)
+    const { args, displayLoading, content } = this.props
+    articleObject = args
     return (
       <div>
         <div className="article-page">
-          <Loading show={this.props.displayLoading} />
+          <Loading show={displayLoading} />
           <div
-            dangerouslySetInnerHTML={{ __html: marked(this.props.content) }} />
+            dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
         {this.getFooter()}
       </div>
@@ -131,9 +134,9 @@ class Article extends React.Component {
 
 Article.propTypes = {
   dispatch: PropTypes.func,
-  params: PropTypes.object,
-  args: PropTypes.object,
   content: PropTypes.string,
+  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  args: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   displayLoading: PropTypes.number,
 }
 
@@ -164,7 +167,7 @@ function mapStateToProps(state, ownProps) {
   const getArgs = () => {
     const articleId = ownProps.params.id
     if (state.request.articles) {
-      return state.request.articles['map'][articleId]
+      return state.request.articles.map[articleId]
     }
     return ''
   }
