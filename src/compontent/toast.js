@@ -25,10 +25,12 @@ class Toast extends React.Component {
   static propTypes = {
     manager: PropTypes.object,
   }
+
   static defaultProps = {
     toastFunc: {},
     manager: ToastObj,
   }
+
   render() {
     const clazzName = this.props.manager.show ? 'toastAnimate toast-wrap toast-msg' : 'toast-wrap'
     return (

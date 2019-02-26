@@ -11,7 +11,7 @@ import img3 from '../../resource/jpg/about3.jpg'
 
 export default class About extends React.Component {
   // constructor(props) {
-    // super(props)
+  // super(props)
   // }
   render() {
     return (

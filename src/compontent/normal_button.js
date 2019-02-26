@@ -13,9 +13,7 @@ import weiboImg from '../img/weiboImg'
 import githubImg from '../img/githubImg'
 import pushpinImg from '../img/pushpinImg'
 
-
 class NormalButton extends React.Component {
-
   static propTypes = {
     // default button event handler
     handleClick: PropTypes.func,
@@ -24,6 +22,7 @@ class NormalButton extends React.Component {
     // // defalut button content
     title: PropTypes.string,
   }
+
   static defaultProps = {
     handleClick: () => {},
     img: '',
@@ -45,7 +44,9 @@ class NormalButton extends React.Component {
 
   getImg = () => {
     let Img = null
-    switch (this.props.img) {
+    const { img } = this.props
+    const { imgColor } = this.state
+    switch (img) {
       case 'home': {
         Img = homeImg
         break
@@ -76,7 +77,7 @@ class NormalButton extends React.Component {
       }
     }
     return (
-      <Img className={`normal-button-image ${this.state.imgColor}`} />
+      <Img className={`normal-button-image ${imgColor}`} />
     )
   }
 
@@ -97,10 +98,12 @@ class NormalButton extends React.Component {
   }
 
   render() {
+    const { handleClick, title } = this.props
+    const { backgroundColor, fontColor } = this.state
     return (
-      <button className={`normal-button ${this.state.backgroundColor}`} onClick={this.props.handleClick}>
+      <button type="button" className={`normal-button ${backgroundColor}`} onClick={handleClick}>
         {this.getImg()}
-        <div className={`normal-button-title ${this.state.fontColor}`}>{this.props.title}</div>
+        <div type="button" className={`normal-button-title ${fontColor}`}>{title}</div>
       </button>
     )
   }

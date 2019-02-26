@@ -7,25 +7,30 @@ import '../about/about.css'
 import Footer from '../footer/footer'
 
 export default class Home extends React.Component {
+  imgStyle = {
+    height: document.body.clientHeight - 48,
+    width: ((document.body.clientHeight) / 1000) * 839,
+  }
 
   constructor(props) {
     super(props)
     this.state = { show: true }
   }
+
   componentDidMount() {
     this.renderConvas()
   }
-  imgStyle = {
-    height: document.body.clientHeight - 48,
-    width: ((document.body.clientHeight) / 1000) * 839,
-  }
+
+
   click = () => {
+    const { show } = this.state
     this.setState({
-      show: !this.state.show,
+      show: !show,
     })
   }
+
   loop = (ctx) => {
-    const canvas = this.canvas
+    const { canvas } = this
     canvas.width = canvas.parentNode.offsetWidth
     canvas.height = canvas.parentNode.offsetHeight
     ctx.fillStyle = 'rgba(0,222,255, 0.2)'
@@ -38,14 +43,14 @@ export default class Home extends React.Component {
     ctx.closePath()
     ctx.fill()
   }
+
   renderConvas = () => {
-    const canvas = this.canvas
+    const { canvas } = this
     const ctx = canvas.getContext('2d')
-    window.requestAnimFrame = (() =>
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      function cb(callback) {
+    window.requestAnimFrame = (() => window.requestAnimationFrame
+      || window.webkitRequestAnimationFrame
+      || window.mozRequestAnimationFrame
+      || function cb(callback) {
         window.setTimeout(callback, 1000 / 60)
       })()
     let step = 0
@@ -92,10 +97,11 @@ export default class Home extends React.Component {
     }
     loop()
   }
+
   render() {
     return (
       <div className="home-template" style={{ height: document.body.clientHeight - 48 }}>
-        <canvas ref={(c) => { this.canvas = c }} width={`${document.body.clientWidth}`} height={'1500'} />
+        <canvas ref={(c) => { this.canvas = c }} width={`${document.body.clientWidth}`} height="1500" />
         <Footer color="white" />
       </div>
     )

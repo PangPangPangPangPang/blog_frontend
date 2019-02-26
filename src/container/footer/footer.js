@@ -8,8 +8,6 @@ import PropTypes from 'prop-types'
 import weiboImg from '../../img/weiboImg'
 import githubImg from '../../img/githubImg'
 
-
-
 const Footer = (props) => {
   const Weibo = weiboImg
   const Github = githubImg

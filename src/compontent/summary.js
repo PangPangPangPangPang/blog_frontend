@@ -16,7 +16,8 @@ const Summary = (props) => {
       arr.push(
         <div key={`${i}`} className="summary-tag">
           {props.tags[i]}
-        </div>)
+        </div>,
+      )
     }
     return arr
   }
