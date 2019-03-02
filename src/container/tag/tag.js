@@ -11,6 +11,7 @@ const tagWindowStyle = {
 }
 
 const Tag = () => {
+  window.scrollTo(0, 0)
   return (
     <div className="tag-base" style={tagWindowStyle}>
       <div className="tag-header">

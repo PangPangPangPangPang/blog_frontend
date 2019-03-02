@@ -62,9 +62,27 @@ let articleObject
 renderer.heading = function heading(text, level) {
   const font = 30 - (level * 3)
   if (level === 1) {
-    return `<div><div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div><div>${articleObject.tags}</div></div>`
+    // let tagStr = ''
+    // for (let i = 0; i < articleObject.tags.length; i += 1) {
+      // tagStr += `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
+                  // ${articleObject.tags[i]}
+                // </div>`
+    // }
+    const timeStr = `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
+                      ${articleObject.time}
+                    </div>`
+    return `<div>
+              <div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px">
+                <strong>${text}</strong>
+              </div>
+              <div style="margin-bottom:10px;font-weight: bold;display: flex;">
+                ${timeStr}
+              </div>
+            </div>`
   }
-  return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px"><strong>${text}</strong></div>`
+  return `<div class="article-head" style="font-size: ${font}px;margin-bottom: 10px;margin-top: 30px;padding-bottom: 8px">
+            <strong>${text}</strong>
+          </div>`
 }
 
 renderer.strong = function strong(text) {
@@ -93,11 +111,6 @@ renderer.codespan = function code(text) {
 }
 
 class Article extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { content: '' }
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0)
     const { dispatch, params } = this.props
@@ -169,10 +182,10 @@ function mapStateToProps(state, ownProps) {
 
   const getArgs = () => {
     const articleId = ownProps.params.id
-    if (state.request.articles) {
-      return state.request.articles.map[articleId]
+    if (state.request[articleId]) {
+      return state.request[articleId]
     }
-    return ''
+    return {}
   }
   return {
     content: getContent(),

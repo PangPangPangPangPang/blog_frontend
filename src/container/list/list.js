@@ -49,8 +49,10 @@ class List extends React.Component {
     list: [],
   }
 
+
   constructor(props) {
     super(props)
+    this.showFooter = false
     this.state = {
       content: getStore().getState().request.list || {},
     }
@@ -79,7 +81,19 @@ class List extends React.Component {
         />)
       }
     }
+    if (ret.length > 0) {
+      this.showFooter = true
+    }
     return ret
+  }
+
+  getFooter = () => {
+    if (this.showFooter) {
+      return (
+        <Footer key={1000} />
+      )
+    }
+    return null
   }
 
   render() {
@@ -95,7 +109,7 @@ class List extends React.Component {
             <FriendLink list={FriendLinks} />
           </div>
         </div>
-        <Footer key={1000} />
+        getFooter()
       </div>
     )
   }

@@ -11,7 +11,7 @@ const FriendLink = (props) => {
   for(let i = 0; i < list.length; i += 1) {
     const item = list[i]
     ret.push(
-      <div>
+      <div key={i}>
         <a className="friend-link-name" href={item.link}>
           {item.name}
         </a>
