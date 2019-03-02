@@ -109,7 +109,7 @@ class List extends React.Component {
             <FriendLink list={FriendLinks} />
           </div>
         </div>
-        getFooter()
+        {this.getFooter()}
       </div>
     )
   }
