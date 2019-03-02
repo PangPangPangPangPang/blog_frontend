@@ -11,6 +11,30 @@ import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import '../footer/footer.css'
+import FriendLink from '../../compontent/friendlink'
+
+const FriendLinks = [
+  {
+    name: '鸳鸯',
+    link: 'https://blog.y01.me',
+    description: 'stk大佬',
+  },
+  {
+    name: 'ギャラ',
+    link: 'https://gyara.moe/',
+    description: '菜鸡不多说',
+  },
+  {
+    name: 'Xixing',
+    link: 'https://xixing.dev/',
+    description: 'P11',
+  },
+  {
+    name: 'Dan',
+    link: 'https://blog.igaryhe.io/',
+    description: '@DGN',
+  },
+]
 
 class List extends React.Component {
   static propTypes = {
@@ -54,9 +78,6 @@ class List extends React.Component {
           time={sourceList[i].time}
         />)
       }
-      if (sourceList.length) {
-        ret.push(<Footer key={1000} />)
-      }
     }
     return ret
   }
@@ -64,9 +85,17 @@ class List extends React.Component {
   render() {
     const { displayLoading } = this.props
     return (
-      <div className="list-template">
-        {this.getlist()}
-        <Loading show={displayLoading} />
+      <div>
+        <div className="list-base">
+          <div className="list-template">
+            {this.getlist()}
+            <Loading show={displayLoading} />
+          </div>
+          <div className="friend-link">
+            <FriendLink list={FriendLinks} />
+          </div>
+        </div>
+        <Footer key={1000} />
       </div>
     )
   }
@@ -91,5 +120,6 @@ function mapStateToProps(state) {
     displayLoading: getShow(),
   }
 }
+
 
 export default connect(mapStateToProps)(List)

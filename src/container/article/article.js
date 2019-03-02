@@ -35,7 +35,10 @@ renderer.code = (code, language) => {
 }
 
 renderer.image = (href, title, text) => {
-  let size = title.split('x')
+  let size
+  if (title) {
+    size = title.split('x')
+  }
   if (title) {
     if (size[1]) {
       size = `width=${size[0]}height=${size[1]}`

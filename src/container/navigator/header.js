@@ -5,7 +5,7 @@ import React from 'react'
 import { hashHistory } from 'react-router'
 import './header.css'
 import NormalButton from '../../compontent/normal_button'
-import Logo from '../../img/logo.js'
+import Logo from '../../img/logo'
 
 class Header extends React.Component {
   constructor(props) {
@@ -15,9 +15,11 @@ class Header extends React.Component {
       iconColor: '',
     }
   }
+
   componentDidMount() {
     document.addEventListener('scroll', this.scrollEvent, false)
   }
+
   scrollEvent = () => {
     if (document.documentElement.scrollTop > 90) {
       this.setState({
@@ -35,26 +37,30 @@ class Header extends React.Component {
   clickHome = () => {
     hashHistory.push('home')
   }
+
   clickArticle = () => {
     hashHistory.push('list')
   }
+
   clickTags = () => {
     hashHistory.push('tag')
   }
+
   clickAbout = () => {
     hashHistory.push('about')
   }
+
   render() {
+    const { backgroundColor, iconColor } = this.state
     return (
       <div className="header-base">
-        <div className={`header-default ${this.state.backgroundColor}`} >
+        <div className={`header-default ${backgroundColor}`}>
           <NormalButton title="首页" img={'home'} handleClick={this.clickHome} />
           <NormalButton title="文章" img={'article'} handleClick={this.clickArticle} />
-          <NormalButton title="标签" img={'tag'} handleClick={this.clickTags} />
+          <NormalButton title="Flag" img={'tag'} handleClick={this.clickTags} />
           <NormalButton title="关于" img={'about'} handleClick={this.clickAbout} />
-          <Logo className={`header-default-icon ${this.state.iconColor}`} />
+          <Logo className={`header-default-icon ${iconColor}`} />
         </div>
-
       </div>
     )
   }

@@ -9,4 +9,19 @@ html, body{
 	height: 100%;
 }
 
+a {
+  color: #D0104C;
+}
+a:active {
+  color: #D0104C;
+}
+
+a:visited {
+  color: #D0104C;
+}
+
+a:hover {
+  color: #D0104C;
+}
+
 

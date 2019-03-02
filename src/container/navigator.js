@@ -5,22 +5,26 @@
 
 import React from 'react'
 import { hashHistory } from 'react-router'
-import { connect } from 'react-redux'
-import Header from '../container/navigator/header'
-import './navigator/header.css'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import Header from './navigator/header'
+import './navigator/header.css'
+import './navigator.css'
 
 
 class Navigator extends React.Component {
   static protoTypes = {
     children: PropTypes.Object,
   }
+
   static defaultProps = {
     children: {},
   }
+
   state = {
     current: 'mail',
   }
+
   handleClick = (e) => {
     switch (e.key) {
       case 'smile':
@@ -42,9 +46,10 @@ class Navigator extends React.Component {
       current: e.key,
     })
   }
+
   render() {
     return (
-      <div>
+      <div className="navigator">
         <Header />
         <div className="header-placeholder" />
         {this.props.children}
@@ -52,18 +57,5 @@ class Navigator extends React.Component {
     )
   }
 }
-
-// function mapStateToProps(state) {
-  // return {
-    // value: state.count
-  // }
-// }
-
-// Map Redux actions to component props
-// function mapDispatchToProps(dispatch) {
-  // return {
-    // onIncreaseClick: () => dispatch(increaseAction)
-  // }
-// }
 
 export default connect()(Navigator)
