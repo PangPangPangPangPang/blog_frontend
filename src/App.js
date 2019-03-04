@@ -17,7 +17,13 @@ import Article from './container/article/article'
 import './App.css'
 
 const logger = createLogger()
-const store = createStore(reducer, applyMiddleware(thunk, logger))
+
+let store
+if (process.env.NODE_ENV === 'development') {
+  store = createStore(reducer, applyMiddleware(thunk, logger))
+} else {
+  store = createStore(reducer, applyMiddleware(thunk))
+}
 
 export function getStore() {
   return store
