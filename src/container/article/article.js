@@ -14,7 +14,6 @@ import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
 
-
 const renderer = new marked.Renderer()
 
 marked.setOptions({
@@ -53,20 +52,19 @@ renderer.image = (href, title, text) => {
   if (process.env.NODE_ENV === 'development') {
     h = DevImage
   }
-  return (
-    `<img onclick="window.open(this.src)" class="article-img" src="${h}" width="100%" height="auto" alt=${text}/>`
-  )
+
+  return `<img onclick="window.open(this.src)" class="article-img" src="${h}" width="100%" height="auto" alt=${text}/>`
 }
 
 let articleObject
 renderer.heading = function heading(text, level) {
-  const font = 30 - (level * 3)
+  const font = 30 - level * 3
   if (level === 1) {
     // let tagStr = ''
     // for (let i = 0; i < articleObject.tags.length; i += 1) {
-      // tagStr += `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
-                  // ${articleObject.tags[i]}
-                // </div>`
+    // tagStr += `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
+    // ${articleObject.tags[i]}
+    // </div>`
     // }
     const timeStr = `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
                       ${articleObject.time}
@@ -125,9 +123,7 @@ class Article extends React.Component {
   getFooter() {
     const { displayLoading } = this.props
     if (displayLoading === 0) {
-      return (
-        <Footer />
-      )
+      return <Footer />
     }
     return null
   }
@@ -139,8 +135,7 @@ class Article extends React.Component {
       <div>
         <div className="article-page">
           <Loading show={displayLoading} />
-          <div
-            dangerouslySetInnerHTML={{ __html: marked(content) }} />
+          <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
         {this.getFooter()}
       </div>

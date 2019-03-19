@@ -12,11 +12,12 @@ class Loading extends React.Component {
       return 'sk-cube-grid'
     }
     return 'sk-cube-grid-hide'
-  }
+  };
 
   render() {
+    const { show } = this.props
     return (
-      <div className={this.getHiddenStatus(this.props.show)}>
+      <div className={this.getHiddenStatus(show)}>
         <div className="sk-cube sk-cube1" />
         <div className="sk-cube sk-cube2" />
         <div className="sk-cube sk-cube3" />

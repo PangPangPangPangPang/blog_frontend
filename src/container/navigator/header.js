@@ -32,33 +32,45 @@ class Header extends React.Component {
         iconColor: 'header-default-icon-animation-back',
       })
     }
-  }
+  };
 
   clickHome = () => {
     hashHistory.push('home')
-  }
+  };
 
   clickArticle = () => {
     hashHistory.push('list')
-  }
+  };
 
   clickTags = () => {
     hashHistory.push('tag')
-  }
+  };
 
   clickAbout = () => {
     hashHistory.push('about')
-  }
+  };
 
   render() {
     const { backgroundColor, iconColor } = this.state
     return (
       <div className="header-base">
         <div className={`header-default ${backgroundColor}`}>
-          <NormalButton title="首页" img={'home'} handleClick={this.clickHome} />
-          <NormalButton title="文章" img={'article'} handleClick={this.clickArticle} />
-          <NormalButton title="Flag" img={'tag'} handleClick={this.clickTags} />
-          <NormalButton title="关于" img={'about'} handleClick={this.clickAbout} />
+          <NormalButton
+            title="首页"
+            img="home"
+            handleClick={this.clickHome}
+          />
+          <NormalButton
+            title="文章"
+            img="article"
+            handleClick={this.clickArticle}
+          />
+          <NormalButton title="Flag" img="tag" handleClick={this.clickTags} />
+          <NormalButton
+            title="关于"
+            img="about"
+            handleClick={this.clickAbout}
+          />
           <Logo className={`header-default-icon ${iconColor}`} />
         </div>
       </div>

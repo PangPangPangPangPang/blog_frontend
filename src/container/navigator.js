@@ -11,19 +11,18 @@ import Header from './navigator/header'
 import './navigator/header.css'
 import './navigator.css'
 
-
 class Navigator extends React.Component {
   static protoTypes = {
     children: PropTypes.Object,
-  }
+  };
 
   static defaultProps = {
     children: {},
-  }
+  };
 
   state = {
     current: 'mail',
-  }
+  };
 
   handleClick = (e) => {
     switch (e.key) {
@@ -45,7 +44,7 @@ class Navigator extends React.Component {
     this.setState({
       current: e.key,
     })
-  }
+  };
 
   render() {
     return (

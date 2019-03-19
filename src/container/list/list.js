@@ -41,14 +41,13 @@ class List extends React.Component {
     displayLoading: PropTypes.number,
     dispatch: PropTypes.func,
     list: PropTypes.array,
-  }
+  };
 
   static defaultProps = {
     displayLoading: 1,
     dispatch: {},
     list: [],
-  }
-
+  };
 
   constructor(props) {
     super(props)
@@ -72,29 +71,29 @@ class List extends React.Component {
     const sourceList = list || []
     if (sourceList instanceof Array) {
       for (let i = 0; i < sourceList.length; i += 1) {
-        ret.push(<Summary
-          key={i}
-          tags={sourceList[i].tags}
-          name={sourceList[i].title}
-          id={sourceList[i].id}
-          time={sourceList[i].time}
-        />)
+        ret.push(
+          <Summary
+            key={i}
+            tags={sourceList[i].tags}
+            name={sourceList[i].title}
+            id={sourceList[i].id}
+            time={sourceList[i].time}
+          />,
+        )
       }
     }
     if (ret.length > 0) {
       this.showFooter = true
     }
     return ret
-  }
+  };
 
   getFooter = () => {
     if (this.showFooter) {
-      return (
-        <Footer key={1000} />
-      )
+      return <Footer key={1000} />
     }
     return null
-  }
+  };
 
   render() {
     const { displayLoading } = this.props
@@ -134,6 +133,5 @@ function mapStateToProps(state) {
     displayLoading: getShow(),
   }
 }
-
 
 export default connect(mapStateToProps)(List)

@@ -21,13 +21,12 @@ const Summary = (props) => {
     }
     return arr
   }
+  const { name } = props
   return (
     <div className="summary-card" onClick={clickDetail}>
-      {props.name}
+      {name}
       <hr className="summary-seperate" />
-      <div className="summary-tags">
-        {renderTag()}
-      </div>
+      <div className="summary-tags">{renderTag()}</div>
     </div>
   )
 }

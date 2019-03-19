@@ -19,13 +19,13 @@ function handleRequestSuccess(state, action) {
       const articleList = JSON.parse(action.res.result)
       const articles = {}
       const articleMap = {}
-      articles['list'] = articleList
-      for (let index in articleList) {
-        let id = articleList[index].id
+      articles.list = articleList
+      for (const index in articleList) {
+        const id = articleList[index].id
         articleMap[id] = articleList[index]
       }
-      articles['map'] = articleMap
-      return Object.assign({}, state, { articles: articles })
+      articles.map = articleMap
+      return Object.assign({}, state, { articles })
     case 'register':
       return Object.assign({}, state, { register: action })
     case 'article':

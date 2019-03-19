@@ -21,13 +21,13 @@ class NormalButton extends React.Component {
     img: PropTypes.string,
     // // defalut button content
     title: PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     handleClick: () => {},
     img: '',
     title: '',
-  }
+  };
 
   constructor(props) {
     super(props)
@@ -76,10 +76,8 @@ class NormalButton extends React.Component {
         break
       }
     }
-    return (
-      <Img className={`normal-button-image ${imgColor}`} />
-    )
-  }
+    return <Img className={`normal-button-image ${imgColor}`} />
+  };
 
   scrollEvent = () => {
     if (document.documentElement.scrollTop > 90) {
@@ -95,15 +93,21 @@ class NormalButton extends React.Component {
         imgColor: 'normal-button-image-animation-back',
       })
     }
-  }
+  };
 
   render() {
     const { handleClick, title } = this.props
     const { backgroundColor, fontColor } = this.state
     return (
-      <button type="button" className={`normal-button ${backgroundColor}`} onClick={handleClick}>
+      <button
+        type="button"
+        className={`normal-button ${backgroundColor}`}
+        onClick={handleClick}
+      >
         {this.getImg()}
-        <div type="button" className={`normal-button-title ${fontColor}`}>{title}</div>
+        <div type="button" className={`normal-button-title ${fontColor}`}>
+          {title}
+        </div>
       </button>
     )
   }

@@ -8,7 +8,6 @@ import img1 from '../../resource/jpg/about1.jpg'
 import img2 from '../../resource/jpg/about2.jpg'
 import img3 from '../../resource/jpg/about3.jpg'
 
-
 export default class About extends React.Component {
   // constructor(props) {
   // super(props)

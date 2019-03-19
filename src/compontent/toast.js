@@ -7,7 +7,6 @@ import './loading.css'
 import './toast.css'
 import PropTypes from 'prop-types'
 
-
 const ToastObj = {
   message: '',
   show: false,
@@ -24,24 +23,23 @@ const ToastManager = {
 class Toast extends React.Component {
   static propTypes = {
     manager: PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     toastFunc: {},
     manager: ToastObj,
-  }
+  };
 
   render() {
-    const clazzName = this.props.manager.show ? 'toastAnimate toast-wrap toast-msg' : 'toast-wrap'
+    const clazzName = this.props.manager.show
+      ? 'toastAnimate toast-wrap toast-msg'
+      : 'toast-wrap'
     return (
       <div className="toast-background">
-        <div className={clazzName}>
-          {this.props.manager.message}
-        </div>
+        <div className={clazzName}>{this.props.manager.message}</div>
       </div>
     )
   }
 }
-
 
 export { Toast, ToastManager }

@@ -3,8 +3,10 @@
  */
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import { Router, Route, hashHistory, IndexRedirect } from 'react-router'
-import  createLogger  from 'redux-logger'
+import {
+  Router, Route, hashHistory, IndexRedirect,
+} from 'react-router'
+import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import React from 'react'
 import Navigator from './container/navigator'

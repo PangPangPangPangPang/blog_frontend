@@ -8,7 +8,7 @@ import './friendlink.css'
 const FriendLink = (props) => {
   const { list } = props
   const ret = []
-  for(let i = 0; i < list.length; i += 1) {
+  for (let i = 0; i < list.length; i += 1) {
     const item = list[i]
     ret.push(
       <div key={i}>
@@ -16,27 +16,24 @@ const FriendLink = (props) => {
           {item.name}
         </a>
         {item.description}
-      </div>
+      </div>,
     )
   }
 
   return (
     <div className="friend-link-detail">
-      <div className="friend-link-header">
-        友链出售中...
-      </div>
+      <div className="friend-link-header">友链出售中...</div>
       {ret}
     </div>
   )
 }
 
 FriendLink.propTypes = {
-  list: PropTypes.array // eslint-disable-line react/forbid-prop-types
-
+  list: PropTypes.array, // eslint-disable-line react/forbid-prop-types
 }
 
 FriendLink.defaultProps = {
-  list: []
+  list: [],
 }
 
 export default FriendLink
