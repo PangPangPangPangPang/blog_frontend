@@ -13,6 +13,8 @@ import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
+import Comment from '../../compontent/comment'
+import { debuglog } from 'util'
 
 const renderer = new marked.Renderer()
 
@@ -117,7 +119,10 @@ class Article extends React.Component {
     if (store.getState().request[params.id]) {
       return
     }
+    const commentArgs = {}
+    commentArgs.article_id = params.id
     dispatch(request('article', dic, 'get'))
+    dispatch(request('fetchcomment', commentArgs, 'get'))
   }
 
   getFooter() {
@@ -126,6 +131,32 @@ class Article extends React.Component {
       return <Footer />
     }
     return null
+  }
+
+  getComments() {
+    const { comments } = this.props
+    if (comments.length === 0) {
+      return null
+    }
+    const ret = []
+    Object.keys(comments).forEach((index) => {
+      const comment = comments[index]
+      const { content, name, blog } = comment
+      const iconUrl = comment.icon_url
+      const createDate = comment.create_date
+      // console.log(iconUrl)
+      ret.push(
+        <Comment
+          key={index}
+          content={content}
+          name={name}
+          iconUrl={iconUrl}
+          blog={blog}
+          createDate={createDate}
+        />,
+      )
+    })
+    return ret
   }
 
   render() {
@@ -137,6 +168,7 @@ class Article extends React.Component {
           <Loading show={displayLoading} />
           <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
+        <div className="article-page">{this.getComments()}</div>
         {this.getFooter()}
       </div>
     )
@@ -149,14 +181,16 @@ Article.propTypes = {
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   args: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   displayLoading: PropTypes.number,
+  comments: PropTypes.array,
 }
 
 Article.defaultProps = {
   dispatch: {},
   params: {},
   args: {},
-  content: { res: { content: '' } },
+  content: '',
   displayLoading: 1,
+  comments: [],
 }
 
 function mapStateToProps(state, ownProps) {
@@ -182,10 +216,18 @@ function mapStateToProps(state, ownProps) {
     }
     return {}
   }
+  const getComments = () => {
+    const articleId = ownProps.params.id
+    if (state.request[articleId]) {
+      return state.request[articleId].comments
+    }
+    return []
+  }
   return {
     content: getContent(),
     displayLoading: getShow(),
     args: getArgs(),
+    comments: getComments(),
   }
 }
 

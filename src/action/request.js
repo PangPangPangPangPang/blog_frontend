@@ -32,7 +32,9 @@ export default function request(url, params, method) {
     requestParams = {}
   }
   if (requestMethod === 'get') {
-    const querystring = Object.keys(requestParams).map(key => `${key}=${requestParams[key]}`).join('&')
+    const querystring = Object.keys(requestParams)
+      .map(key => `${key}=${requestParams[key]}`)
+      .join('&')
     if (querystring.length !== 0) {
       requestUrl += `?${querystring}`
     }
@@ -44,16 +46,14 @@ export default function request(url, params, method) {
   }
   getStore().dispatch(requestAction(Type.REQUEST_START, url, {}))
 
-  return function result(dispatch) {
-    return fetch(requestUrl, reqparams)
-      .then(res => res.json())
-      .then((res) => {
-        dispatch(requestAction(Type.REQUEST_SUCCESS, url, res))
-        return res
-      })
-      .catch((res) => {
-        dispatch(requestAction(Type.REQUEST_FAILURE, url, res))
-        return res
-      })
-  }
+  return dispatch => fetch(requestUrl, reqparams)
+    .then(res => res.json())
+    .then((res) => {
+      dispatch(requestAction(Type.REQUEST_SUCCESS, url, res))
+      return res
+    })
+    .catch((res) => {
+      dispatch(requestAction(Type.REQUEST_FAILURE, url, res))
+      return res
+    })
 }

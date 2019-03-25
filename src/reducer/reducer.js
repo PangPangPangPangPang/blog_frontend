@@ -15,27 +15,44 @@ const user = (state = {}, action) => {
 function handleRequestSuccess(state, action) {
   const k = action.query
   switch (k) {
-    case 'list':
+    case 'list': {
       const articleList = JSON.parse(action.res.result)
       const articles = {}
       const articleMap = {}
       articles.list = articleList
-      for (const index in articleList) {
-        const id = articleList[index].id
+      Object.keys(articleList).forEach((index) => {
+        const { id } = articleList[index]
         articleMap[id] = articleList[index]
-      }
+      })
       articles.map = articleMap
       return Object.assign({}, state, { articles })
+    }
     case 'register':
       return Object.assign({}, state, { register: action })
-    case 'article':
+    case 'article': {
       const article = JSON.parse(action.res.result)
       if (article.id) {
+        const origin = state[article.id] ? state[article.id] : {}
+        const combine = Object.assign({}, article, origin)
         const obj = {}
-        obj[article.id] = article
+        obj[article.id] = combine
+
         return Object.assign({}, state, obj)
       }
       return state
+    }
+    case 'fetchcomment': {
+      const { comments } = action.res.result
+      const articleId = action.res.result.article_id
+      if (articleId) {
+        const article = state[articleId] ? state[articleId] : {}
+        const combine = Object.assign({}, article, { comments })
+        const obj = {}
+        obj[articleId] = combine
+        return Object.assign({}, state, obj)
+      }
+      return state
+    }
     default:
       return Object.assign({}, state, { ret: action })
   }
