@@ -134,8 +134,6 @@ class Article extends React.Component {
 
   onClickComfirm = (args) => {
     const { dispatch } = this.props
-    console.log(args)
-    // dispatch(replyComment(args))
   };
 
   getFooter() {
@@ -187,7 +185,7 @@ class Article extends React.Component {
         </div>
         {this.getComments()}
         {this.getFooter()}
-        <Login />
+        {/* <Login /> */}
       </div>
     )
   }
