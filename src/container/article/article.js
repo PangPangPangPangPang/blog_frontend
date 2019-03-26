@@ -185,7 +185,7 @@ class Article extends React.Component {
         </div>
         {this.getComments()}
         {this.getFooter()}
-        {/* <Login /> */}
+        <Login />
       </div>
     )
   }
