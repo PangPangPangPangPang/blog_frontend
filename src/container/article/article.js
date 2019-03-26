@@ -8,13 +8,15 @@ import hl from 'highlight.js'
 import { connect } from 'react-redux'
 import '../../../node_modules/highlight.js/styles/xcode.css'
 import request from '../../action/request'
+import replyComment from '../../action/replyComment'
 import './article.css'
 import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
 import Comment from '../../compontent/comment'
-import { debuglog } from 'util'
+import Login from '../login/login'
+// import { debuglog } from 'util'
 
 const renderer = new marked.Renderer()
 
@@ -125,6 +127,17 @@ class Article extends React.Component {
     dispatch(request('fetchcomment', commentArgs, 'get'))
   }
 
+  onClickReply = (args) => {
+    const { dispatch } = this.props
+    dispatch(replyComment(args.commentID))
+  };
+
+  onClickComfirm = (args) => {
+    const { dispatch } = this.props
+    console.log(args)
+    // dispatch(replyComment(args))
+  };
+
   getFooter() {
     const { displayLoading } = this.props
     if (displayLoading === 0) {
@@ -134,8 +147,8 @@ class Article extends React.Component {
   }
 
   getComments() {
-    const { comments } = this.props
-    if (comments.length === 0) {
+    const { comments, commentID } = this.props
+    if (comments === null || comments.length === 0) {
       return null
     }
     const ret = []
@@ -144,19 +157,23 @@ class Article extends React.Component {
       const { content, name, blog } = comment
       const iconUrl = comment.icon_url
       const createDate = comment.create_date
-      // console.log(iconUrl)
+      const currentCommentID = comment.comment_id
       ret.push(
         <Comment
           key={index}
+          commentID={currentCommentID}
           content={content}
           name={name}
           iconUrl={iconUrl}
+          showReply={commentID === currentCommentID}
           blog={blog}
           createDate={createDate}
+          clickReply={this.onClickReply}
+          clickConfirm={this.onClickComfirm}
         />,
       )
     })
-    return ret
+    return <div className="article-page">{ret}</div>
   }
 
   render() {
@@ -168,8 +185,9 @@ class Article extends React.Component {
           <Loading show={displayLoading} />
           <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
-        <div className="article-page">{this.getComments()}</div>
+        {this.getComments()}
         {this.getFooter()}
+        <Login />
       </div>
     )
   }
@@ -181,7 +199,9 @@ Article.propTypes = {
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   args: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   displayLoading: PropTypes.number,
-  comments: PropTypes.array,
+  comments: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+
+  commentID: PropTypes.number,
 }
 
 Article.defaultProps = {
@@ -191,6 +211,7 @@ Article.defaultProps = {
   content: '',
   displayLoading: 1,
   comments: [],
+  commentID: -1,
 }
 
 function mapStateToProps(state, ownProps) {
@@ -223,11 +244,19 @@ function mapStateToProps(state, ownProps) {
     }
     return []
   }
+  const getCommentID = () => {
+    const { commentID } = state.reply
+    if (commentID === null) {
+      return -1
+    }
+    return commentID
+  }
   return {
     content: getContent(),
     displayLoading: getShow(),
     args: getArgs(),
     comments: getComments(),
+    commentID: getCommentID(),
   }
 }
 

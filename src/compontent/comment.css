@@ -10,22 +10,34 @@
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  border: 1px solid #d2d5d9;
+}
+
+.comment-img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
 
 .comment-name {
   padding-left: 10px;
   font-size: 16px;
   margin-right: auto;
+  color: #D0104C;
 }
 
 .comment-content {
   font-size: 18px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #d2d5d9;
-  border-width: 1px;
 }
 
 .comment-date {
+  font-size: 16px;
+  color: #D0104C;
   /* padding-left: 10px; */
   /* font-size: 20px; */
+}
+
+.comment-container {
+  border-bottom: 1px solid #d2d5d9;
 }

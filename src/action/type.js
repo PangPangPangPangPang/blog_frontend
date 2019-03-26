@@ -7,4 +7,5 @@ export default {
   REQUEST_START: 'requestStart',
   REQUEST_SUCCESS: 'requestSuccess',
   REQUEST_FAILURE: 'requestFailure',
+  REPLY_COMMENT: 'replyComment', // 标记正在输入状态的回复
 }

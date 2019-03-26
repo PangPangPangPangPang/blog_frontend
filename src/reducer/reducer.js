@@ -71,8 +71,19 @@ const request = (state = {}, action) => {
   }
 }
 
+const reply = (state = {}, action) => {
+  switch (action.type) {
+    case Types.REPLY_COMMENT: {
+      return Object.assign({}, state, { commentID: action.commentID })
+    }
+    default:
+      return state
+  }
+}
+
 const reducer = combineReducers({
   user,
   request,
+  reply,
 })
 export default reducer
