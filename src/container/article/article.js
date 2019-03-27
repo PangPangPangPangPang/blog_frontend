@@ -17,8 +17,10 @@ import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
 import Comment from '../../compontent/comment'
 import Login from '../login/login'
+import Reply from '../../compontent/reply'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { type } from 'os'
 
 // import { debuglog } from 'util'
 
@@ -100,8 +102,8 @@ renderer.paragraph = function paragraph(text) {
 }
 
 renderer.list = function list(body, ordered) {
-  const type = ordered ? 'decimal' : 'disc'
-  return `<ul style="list-style-type: ${type}; margin-top: 0.6em; font-size: 15px; margin-bottom: 1.3em;">${body}</ul>`
+  const t = ordered ? 'decimal' : 'disc'
+  return `<ul style="list-style-type: ${t}; margin-top: 0.6em; font-size: 15px; margin-bottom: 1.3em;">${body}</ul>`
 }
 
 renderer.listitem = function listitem(text) {
@@ -145,7 +147,7 @@ class Article extends React.Component {
         login: <Login clickConfirm={this.onClickSubmit} show />,
       })
     } else {
-      dispatch(replyComment(args.commentID))
+      dispatch(replyComment(args.commentId))
     }
   };
 
@@ -154,11 +156,12 @@ class Article extends React.Component {
     const { params } = this.props
     const articleID = params.id
     const { uuid } = window.localStorage
-    const { reply } = args
+    const { reply, commentId } = args
     const form = new FormData()
     form.append('article_id', articleID)
     form.append('uuid', uuid)
     form.append('content', reply)
+    form.append('parent_id', commentId)
     dispatch(request('addcomment', form, 'post'))
       .then(() => {
         const commentArgs = {}
@@ -192,7 +195,7 @@ class Article extends React.Component {
       ret.push(
         <Comment
           key={index}
-          commentID={currentCommentID}
+          commentId={currentCommentID}
           content={content}
           name={name}
           iconUrl={iconUrl}
@@ -240,6 +243,9 @@ class Article extends React.Component {
         <div className="article-page">
           <Loading show={displayLoading} />
           <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
+        </div>
+        <div className="article-page">
+          <Reply clickConfirm={this.onClickComfirm} />
         </div>
         {this.getComments()}
         {this.getFooter()}
@@ -308,9 +314,10 @@ function mapStateToProps(state, ownProps) {
   }
   const getCommentID = () => {
     const { commentID } = state.reply
-    if (commentID === null) {
+    if (commentID === undefined) {
       return -1
     }
+    console.log(typeof commentID)
     return commentID
   }
 

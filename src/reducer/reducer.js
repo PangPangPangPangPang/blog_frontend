@@ -78,7 +78,7 @@ const reply = (state = {}, action) => {
       return Object.assign({}, state, { commentID: action.commentID })
     }
     case Types.CLEAR_REPLY_COMMENT: {
-      return Object.assign({}, state, { commentID: '' })
+      return Object.assign({}, state, { commentID: -1 })
     }
 
     default:

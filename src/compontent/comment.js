@@ -5,6 +5,7 @@ import React from 'react'
 import './comment.css'
 import PropTypes from 'prop-types'
 import { getbaseUrl } from '../action/request'
+import Reply from './reply'
 
 class Comment extends React.Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class Comment extends React.Component {
   }
 
   clickIconUrl = () => {
-    console.log(this.props)
     const { blog } = this.props
     if (blog === null || blog.length === 0) {
       return
@@ -31,26 +31,26 @@ class Comment extends React.Component {
     clickReply(this.props)
   };
 
-  onClickComfirm = () => {
-    const { clickConfirm } = this.props
-    if (clickConfirm === null) {
-      return
-    }
-    const { replyValue } = this.state
-    const args = Object.assign({}, this.props, {
-      reply: replyValue,
-    })
-    clickConfirm(args)
-  };
+  // onClickComfirm = () => {
+  // const { clickConfirm } = this.props
+  // if (clickConfirm === null) {
+  // return
+  // }
+  // const { replyValue } = this.state
+  // const args = Object.assign({}, this.props, {
+  // reply: replyValue,
+  // })
+  // clickConfirm(args)
+  // };
 
-  handleChange = (event) => {
-    this.setState({
-      replyValue: event.target.value,
-    })
-  };
+  // handleChange = (event) => {
+  // this.setState({
+  // replyValue: event.target.value,
+  // })
+  // };
 
   replyView = () => {
-    const { showReply } = this.props
+    const { showReply, commentId, clickConfirm } = this.props
     if (!showReply) {
       return (
         <button onClick={this.onClickReply} type="button">
@@ -58,21 +58,7 @@ class Comment extends React.Component {
         </button>
       )
     }
-    return (
-      <div>
-        <textarea
-          placeholder="随便说点什么..."
-          maxLength="100"
-          rows="5"
-          cols="100"
-          value={this.state.replyValue}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.onClickComfirm} type="button">
-          confirm
-        </button>
-      </div>
-    )
+    return <Reply clickConfirm={clickConfirm} commentId={commentId} />
   };
 
   render() {
@@ -113,7 +99,7 @@ Comment.propTypes = {
   clickReply: PropTypes.func,
   clickConfirm: PropTypes.func,
   showReply: PropTypes.bool,
-  // commentID: PropTypes.number,
+  commentId: PropTypes.number,
 }
 
 Comment.defaultProps = {
@@ -125,7 +111,7 @@ Comment.defaultProps = {
   clickReply: null,
   clickConfirm: null,
   showReply: false,
-  // commentID: -1,
+  commentId: -1,
 }
 
 export default Comment
