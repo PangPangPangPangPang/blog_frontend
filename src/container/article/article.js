@@ -153,24 +153,20 @@ class Article extends React.Component {
     const { dispatch } = this.props
     const { params } = this.props
     const articleID = params.id
-    const { name, uuid, blog } = window.localStorage
-    const iconURL = window.localStorage.icon_url
+    const { uuid } = window.localStorage
     const { reply } = args
     const form = new FormData()
     form.append('article_id', articleID)
-    form.append('name', name)
     form.append('uuid', uuid)
-    form.append('blog', blog)
     form.append('content', reply)
-    form.append('icon_url', iconURL)
     dispatch(request('addcomment', form, 'post'))
-      .then((res) => {
+      .then(() => {
         const commentArgs = {}
         commentArgs.article_id = params.id
         dispatch(request('fetchcomment', commentArgs, 'get'))
         dispatch(clearReplyComent())
       })
-      .catch((res) => {})
+      .catch(() => {})
   };
 
   getFooter() {
@@ -318,24 +314,21 @@ function mapStateToProps(state, ownProps) {
     return commentID
   }
 
+  // 获取登录状态
   const getLoginStatus = () => {
     const storage = window.localStorage
+    // 获取storage中缓存的uuid
     const { uuid } = storage
     if (uuid === undefined || uuid.length === 0) {
       if (state.request.register === undefined) {
         return false
       }
+      // 获取从登录response中获得的uuid
       const suuid = state.request.register.uuid
-      const iconURL = state.request.register.icon_url
-      const { name, email, blog } = state.request.register
       if (suuid === undefined || suuid.length === 0) {
         return false
       }
       storage.uuid = suuid
-      storage.name = name
-      storage.email = email
-      storage.blog = blog
-      storage.icon_url = iconURL
     }
     return true
   }
