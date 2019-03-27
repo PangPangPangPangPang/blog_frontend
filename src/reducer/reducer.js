@@ -2,6 +2,7 @@
  * Created by wangyefeng on 03/03/2017.
  */
 import { combineReducers } from 'redux'
+import { type } from 'os'
 import Types from '../action/type'
 
 const user = (state = {}, action) => {
@@ -28,7 +29,7 @@ function handleRequestSuccess(state, action) {
       return Object.assign({}, state, { articles })
     }
     case 'register':
-      return Object.assign({}, state, { register: action })
+      return Object.assign({}, state, { register: action.res.result })
     case 'article': {
       const article = JSON.parse(action.res.result)
       if (article.id) {
@@ -76,6 +77,10 @@ const reply = (state = {}, action) => {
     case Types.REPLY_COMMENT: {
       return Object.assign({}, state, { commentID: action.commentID })
     }
+    case Types.CLEAR_REPLY_COMMENT: {
+      return Object.assign({}, state, { commentID: '' })
+    }
+
     default:
       return state
   }

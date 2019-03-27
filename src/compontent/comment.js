@@ -4,6 +4,7 @@
 import React from 'react'
 import './comment.css'
 import PropTypes from 'prop-types'
+import { getbaseUrl } from '../action/request'
 
 class Comment extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Comment extends React.Component {
   }
 
   clickIconUrl = () => {
+    console.log(this.props)
     const { blog } = this.props
     if (blog === null || blog.length === 0) {
       return
@@ -85,7 +87,11 @@ class Comment extends React.Component {
             onClick={this.clickIconUrl}
             role="presentation"
           >
-            <img className="comment-img" src={iconUrl} alt="" />
+            <img
+              className="comment-img"
+              src={`${getbaseUrl()}avatar/${iconUrl}`}
+              alt=""
+            />
           </div>
           <div className="comment-name">{name}</div>
           <div className="comment-date">{createDate}</div>

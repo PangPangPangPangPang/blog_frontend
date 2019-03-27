@@ -8,4 +8,5 @@ export default {
   REQUEST_SUCCESS: 'requestSuccess',
   REQUEST_FAILURE: 'requestFailure',
   REPLY_COMMENT: 'replyComment', // 标记正在输入状态的回复
+  CLEAR_REPLY_COMMENT: 'clearReplyComment', // 清除正在输入状态的回复
 }

@@ -1,6 +1,17 @@
 .login-container {
-  width: 300px;
-  height: 200px;
-  background: yellow;
+  width: 500px;
+  height: 300px;
+  border-radius: 5px;
+  background: white;
   opacity: 1;
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-icon {
+  width: 50px;
+  height: 50px;
 }

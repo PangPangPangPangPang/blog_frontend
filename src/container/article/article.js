@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import '../../../node_modules/highlight.js/styles/xcode.css'
 import request from '../../action/request'
 import replyComment from '../../action/replyComment'
+import clearReplyComent from '../../action/clearReply'
 import './article.css'
 import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
@@ -16,6 +17,9 @@ import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
 import Comment from '../../compontent/comment'
 import Login from '../login/login'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // import { debuglog } from 'util'
 
 const renderer = new marked.Renderer()
@@ -113,6 +117,13 @@ renderer.codespan = function code(text) {
 }
 
 class Article extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      login: null,
+    }
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0)
     const { dispatch, params } = this.props
@@ -128,12 +139,38 @@ class Article extends React.Component {
   }
 
   onClickReply = (args) => {
-    const { dispatch } = this.props
-    dispatch(replyComment(args.commentID))
+    const { dispatch, isLoggedin } = this.props
+    if (!isLoggedin) {
+      this.setState({
+        login: <Login clickConfirm={this.onClickSubmit} show />,
+      })
+    } else {
+      dispatch(replyComment(args.commentID))
+    }
   };
 
   onClickComfirm = (args) => {
     const { dispatch } = this.props
+    const { params } = this.props
+    const articleID = params.id
+    const { name, uuid, blog } = window.localStorage
+    const iconURL = window.localStorage.icon_url
+    const { reply } = args
+    const form = new FormData()
+    form.append('article_id', articleID)
+    form.append('name', name)
+    form.append('uuid', uuid)
+    form.append('blog', blog)
+    form.append('content', reply)
+    form.append('icon_url', iconURL)
+    dispatch(request('addcomment', form, 'post'))
+      .then((res) => {
+        const commentArgs = {}
+        commentArgs.article_id = params.id
+        dispatch(request('fetchcomment', commentArgs, 'get'))
+        dispatch(clearReplyComent())
+      })
+      .catch((res) => {})
   };
 
   getFooter() {
@@ -174,8 +211,33 @@ class Article extends React.Component {
     return <div className="article-page">{ret}</div>
   }
 
+  onClickSubmit = (args) => {
+    const { dispatch } = this.props
+    const {
+      name, email, blog, file,
+    } = args
+    const form = new FormData()
+    form.append('name', name)
+    form.append('file', file)
+    form.append('email', email)
+    form.append('blog', blog)
+    dispatch(request('register', form, 'post')).then((res) => {
+      const { errormsg, errorcode } = res
+      if (errorcode === 0) {
+        this.setState({
+          login: null,
+        })
+      } else {
+        toast(errormsg, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        })
+      }
+    })
+  };
+
   render() {
     const { args, displayLoading, content } = this.props
+    const { login } = this.state
     articleObject = args
     return (
       <div>
@@ -185,7 +247,12 @@ class Article extends React.Component {
         </div>
         {this.getComments()}
         {this.getFooter()}
-        <Login />
+        {login}
+        <ToastContainer
+          autoClose={1000}
+          closeButton={<div />}
+          hideProgressBar
+        />
       </div>
     )
   }
@@ -198,8 +265,8 @@ Article.propTypes = {
   args: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   displayLoading: PropTypes.number,
   comments: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-
   commentID: PropTypes.number,
+  isLoggedin: PropTypes.bool,
 }
 
 Article.defaultProps = {
@@ -210,6 +277,7 @@ Article.defaultProps = {
   displayLoading: 1,
   comments: [],
   commentID: -1,
+  isLoggedin: false,
 }
 
 function mapStateToProps(state, ownProps) {
@@ -249,12 +317,35 @@ function mapStateToProps(state, ownProps) {
     }
     return commentID
   }
+
+  const getLoginStatus = () => {
+    const storage = window.localStorage
+    const { uuid } = storage
+    if (uuid === undefined || uuid.length === 0) {
+      if (state.request.register === undefined) {
+        return false
+      }
+      const suuid = state.request.register.uuid
+      const iconURL = state.request.register.icon_url
+      const { name, email, blog } = state.request.register
+      if (suuid === undefined || suuid.length === 0) {
+        return false
+      }
+      storage.uuid = suuid
+      storage.name = name
+      storage.email = email
+      storage.blog = blog
+      storage.icon_url = iconURL
+    }
+    return true
+  }
   return {
     content: getContent(),
     displayLoading: getShow(),
     args: getArgs(),
     comments: getComments(),
     commentID: getCommentID(),
+    isLoggedin: getLoginStatus(),
   }
 }
 

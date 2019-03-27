@@ -11,6 +11,10 @@ if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://mmmmmax.cn/'
 }
 
+export function getbaseUrl() {
+  return baseUrl
+}
+
 function requestAction(type, query, res) {
   return {
     type,
@@ -39,11 +43,10 @@ export default function request(url, params, method) {
       requestUrl += `?${querystring}`
     }
   } else {
-    reqparams.body = JSON.stringify(requestParams)
-    reqparams.headers = {
-      'content-type': 'application/json',
-    }
+    reqparams.body = params
   }
+  reqparams.method = requestMethod
+
   getStore().dispatch(requestAction(Type.REQUEST_START, url, {}))
 
   return dispatch => fetch(requestUrl, reqparams)
