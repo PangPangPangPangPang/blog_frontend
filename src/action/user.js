@@ -4,9 +4,9 @@
 
 import Types from './type'
 
-export default function updateUserName(text) {
+export default function updateCurrentArticle(text) {
   return {
-    type: Types.UPDATE_USER_NAME,
-    name: text,
+    type: Types.UPDATE_CURRENT_ARTICLE,
+    articleID: text,
   }
 }

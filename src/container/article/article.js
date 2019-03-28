@@ -9,8 +9,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import { connect } from 'react-redux'
 import '../../../node_modules/highlight.js/styles/xcode.css'
 import request from '../../action/request'
-import replyComment from '../../action/replyComment'
-import clearReplyComent from '../../action/clearReply'
+import { replyComment, clearReplyComment } from '../../action/reply'
+import updateCurrentArticle from '../../action/user'
 import './article.css'
 import { getStore } from '../../App'
 import Loading from '../../compontent/loading'
@@ -69,12 +69,6 @@ let articleObject
 renderer.heading = function heading(text, level) {
   const font = 30 - level * 3
   if (level === 1) {
-    // let tagStr = ''
-    // for (let i = 0; i < articleObject.tags.length; i += 1) {
-    // tagStr += `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
-    // ${articleObject.tags[i]}
-    // </div>`
-    // }
     const timeStr = `<div style="background-color: #D0104C;padding-left: 7px; padding-right: 7px; padding-bottom:3px; padding-top: 3px; margin-right: 10px; border-radius: 2px; color: white; font-size: 13px">
                       ${articleObject.time}
                     </div>`
@@ -134,7 +128,9 @@ class Article extends React.Component {
       return
     }
     const commentArgs = {}
-    commentArgs.article_id = params.id
+    const articleID = params.id
+    commentArgs.article_id = articleID
+    dispatch(updateCurrentArticle(articleID))
     dispatch(request('article', dic, 'get'))
     dispatch(request('fetchcomment', commentArgs, 'get'))
   }
@@ -145,8 +141,9 @@ class Article extends React.Component {
       this.setState({
         login: (
           <Login
-            clickConfirm={this.onClickLoginSubmit}
-            clickCancel={this.onClickLoginCancel}
+            onLoginSuccess={this.onLoginSuccess}
+            onClickCancel={this.onLoginSuccess}
+            onLoginFailure={this.onLoginFailure}
             show
           />
         ),
@@ -156,14 +153,15 @@ class Article extends React.Component {
     }
   };
 
-  onClickComfirm = (args) => {
+  onClickConfirm = (args) => {
     const { dispatch, isLoggedin } = this.props
     if (!isLoggedin) {
       this.setState({
         login: (
           <Login
-            clickConfirm={this.onClickLoginSubmit}
-            clickCancel={this.onClickLoginCancel}
+            onLoginSuccess={this.onLoginSuccess}
+            onClickCancel={this.onLoginSuccess}
+            onLoginFailure={this.onLoginFailure}
             show
           />
         ),
@@ -184,7 +182,7 @@ class Article extends React.Component {
         const commentArgs = {}
         commentArgs.article_id = params.id
         dispatch(request('fetchcomment', commentArgs, 'get'))
-        dispatch(clearReplyComent())
+        dispatch(clearReplyComment())
       })
       .catch(() => {})
   };
@@ -203,27 +201,15 @@ class Article extends React.Component {
       return null
     }
     const list = []
-    this.generateListWithDepth(root, list, 0)
-    return (
-      <div className="article-page">
-        <div>{list}</div>
-      </div>
-    )
-  };
-
-  generateListWithDepth = (root, list, depth) => {
-    if (root.children.length === 0) {
-      return
-    }
     for (let i = 0; i < root.children.length; i += 1) {
-      const sub = root.children[i]
-      list.push(this.generateCommentComponent(sub, depth))
-      const d = depth + 1
-      this.generateListWithDepth(sub, list, d)
+      const node = root.children[i]
+      const comment = this.generateCommentComponent(node)
+      list.push(comment)
     }
+    return <div className="article-page">{list}</div>
   };
 
-  generateCommentComponent = (node, depth) => {
+  generateCommentComponent = (node) => {
     const { commentID } = this.props
     const { content, name, blog } = node
     const iconUrl = node.icon_url
@@ -240,69 +226,22 @@ class Article extends React.Component {
         blog={blog}
         createDate={createDate}
         clickReply={this.onClickReply}
-        clickConfirm={this.onClickComfirm}
-        marginLeft={`${depth * 100}px`}
+        subcomponent={node.children}
+        onClickConfirm={this.onClickConfirm}
       />
     )
     return component
   };
 
-  // generateTree = (node, component) => {
-  // if (node.children.length <= 0) {
-  // return
-  // }
-  // const subList = []
-  // Object.keys(node.children).forEach((index) => {
-  // const subNode = node.children[index]
-  // const { content, name, blog } = subNode
-  // const iconUrl = subNode.icon_url
-  // const createDate = subNode.create_date
-  // const currentCommentID = subNode.comment_id
-  // const subComponent = (
-  // <Comment
-  // key={index}
-  // commentId={currentCommentID}
-  // content={content}
-  // name={name}
-  // iconUrl={iconUrl}
-  // // showReply={commentID === currentCommentID}
-  // blog={blog}
-  // createDate={createDate}
-  // clickReply={this.onClickReply}
-  // clickConfirm={this.onClickComfirm}
-  // />
-  // )
-  // subList.push(subComponent)
-  // })
-  // };
-
-  onClickLoginSubmit = (args) => {
-    const { dispatch } = this.props
-    const {
-      name, email, blog, file,
-    } = args
-    const form = new FormData()
-    form.append('name', name)
-    form.append('file', file)
-    form.append('email', email)
-    form.append('blog', blog)
-    dispatch(request('register', form, 'post')).then((res) => {
-      const { errormsg, errorcode } = res
-      if (errorcode === 0) {
-        this.setState({
-          login: null,
-        })
-      } else {
-        toast(errormsg, {
-          position: toast.POSITION.BOTTOM_CENTER,
-        })
-      }
+  onLoginSuccess = () => {
+    this.setState({
+      login: null,
     })
   };
 
-  onClickLoginCancel = () => {
-    this.setState({
-      login: null,
+  onLoginFailure = (errormsg) => {
+    toast(errormsg, {
+      position: toast.POSITION.BOTTOM_CENTER,
     })
   };
 
@@ -344,7 +283,7 @@ class Article extends React.Component {
           <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
         <div className="article-page">
-          <Reply clickConfirm={this.onClickComfirm} />
+          <Reply clickConfirm={this.onClickConfirm} />
         </div>
         {this.getComments()}
         {this.getFooter()}

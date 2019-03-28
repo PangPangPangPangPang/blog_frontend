@@ -3,7 +3,7 @@
  */
 
 export default {
-  UPDATE_USER_NAME: 'updateUsername',
+  UPDATE_CURRENT_ARTICLE: 'updateCurrentArticle',
   REQUEST_START: 'requestStart',
   REQUEST_SUCCESS: 'requestSuccess',
   REQUEST_FAILURE: 'requestFailure',

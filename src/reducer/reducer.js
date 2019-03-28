@@ -4,14 +4,6 @@
 import { combineReducers } from 'redux'
 import Types from '../action/type'
 
-const user = (state = {}, action) => {
-  switch (action.type) {
-    case Types.UPDATE_USER_NAME:
-      return Object.assign({}, state, { name: action.name })
-    default:
-      return state
-  }
-}
 function handleRequestSuccess(state, action) {
   const k = action.query
   switch (k) {
@@ -83,6 +75,16 @@ const reply = (state = {}, action) => {
       return Object.assign({}, state, { commentID: -1 })
     }
 
+    default:
+      return state
+  }
+}
+
+const user = (state = {}, action) => {
+  switch (action.type) {
+    case Types.UPDATE_CURRENT_ARTICLE: {
+      return Object.assign({}, state, { articleID: action.articleID })
+    }
     default:
       return state
   }

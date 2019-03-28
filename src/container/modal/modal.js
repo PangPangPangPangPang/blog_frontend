@@ -18,12 +18,12 @@ class Modal extends React.Component {
   componentDidMount() {
     const { show } = this.props
     if (show) {
-      document.body.style.overflow = 'hidden'
+      // document.body.style.overflow = 'hidden'
     }
   }
 
   componentWillUnmount() {
-    document.body.style.overflow = 'auto'
+    // document.body.style.overflow = 'auto'
   }
 
   subComponent = () => null;
