@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import './reply.css'
 
 class Reply extends React.Component {
   constructor() {
@@ -38,12 +39,15 @@ class Reply extends React.Component {
           placeholder="随便说点什么..."
           maxLength="100"
           rows="5"
-          cols="100"
           value={replyValue}
           onChange={this.handleChange}
         />
-        <button onClick={this.onClickConfirm} type="button">
-          confirm
+        <button
+          className="reply-button"
+          onClick={this.onClickConfirm}
+          type="button"
+        >
+          发送
         </button>
       </div>
     )

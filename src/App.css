@@ -24,4 +24,22 @@ a:hover {
   color: #D0104C;
 }
 
+button {
+  outline: none;
+}
 
+input {
+  outline: none;
+  resize:none
+}
+textarea {
+  width: 100%;
+  border: 1px solid #d2d5d9;
+  border-radius: 4px;
+  outline: none;
+  resize:none
+}
+
+textarea:hover {
+  border: 1px solid #D0104C;
+}

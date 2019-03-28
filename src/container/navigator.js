@@ -1,5 +1,5 @@
 /**
- * Created by wangyefeng on 02/03/2017.
+ * Created by Max on 02/03/2017.
  */
 // navigator height 48px
 

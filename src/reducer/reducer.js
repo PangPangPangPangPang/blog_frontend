@@ -1,8 +1,7 @@
 /**
- * Created by wangyefeng on 03/03/2017.
+ * Created by Max on 03/03/2017.
  */
 import { combineReducers } from 'redux'
-import { type } from 'os'
 import Types from '../action/type'
 
 const user = (state = {}, action) => {
@@ -43,6 +42,9 @@ function handleRequestSuccess(state, action) {
       return state
     }
     case 'fetchcomment': {
+      if (action.res.result === null) {
+        return state
+      }
       const { comments } = action.res.result
       const articleId = action.res.result.article_id
       if (articleId) {

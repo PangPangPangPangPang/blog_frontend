@@ -1,8 +1,16 @@
 .list-base {
   display: flex;
+  justify-content: center;
+}
+
+.list-base-phone {
+  flex-direction: column;
+  align-items: center
+}
+
+.list-base-pc {
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
 }
 
 .list-template {
@@ -10,13 +18,17 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	/* width: 100%; */
-  width: 30%;
 	padding-top: 50px;
-	/* padding-bottom: 40px; */
+}
+
+.list-template-phone {
+  width: 90%;
+}
+.list-template-pc {
+  width: 50%;
 }
 
 .friend-link {
-  /* width: 270px; */
   margin-top: 50px;
 }
+

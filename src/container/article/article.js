@@ -1,10 +1,11 @@
 /**
- * Created by wangyefeng on 04/03/2017.
+ * Created by Max on 04/03/2017.
  */
 import React from 'react'
 import marked from 'marked'
 import PropTypes from 'prop-types'
 import hl from 'highlight.js'
+import { ToastContainer, toast } from 'react-toastify'
 import { connect } from 'react-redux'
 import '../../../node_modules/highlight.js/styles/xcode.css'
 import request from '../../action/request'
@@ -18,9 +19,7 @@ import DevImage from '../../resource/jpg/splatoon.png'
 import Comment from '../../compontent/comment'
 import Login from '../login/login'
 import Reply from '../../compontent/reply'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { type } from 'os'
 
 // import { debuglog } from 'util'
 
@@ -144,7 +143,13 @@ class Article extends React.Component {
     const { dispatch, isLoggedin } = this.props
     if (!isLoggedin) {
       this.setState({
-        login: <Login clickConfirm={this.onClickSubmit} show />,
+        login: (
+          <Login
+            clickConfirm={this.onClickLoginSubmit}
+            clickCancel={this.onClickLoginCancel}
+            show
+          />
+        ),
       })
     } else {
       dispatch(replyComment(args.commentId))
@@ -152,7 +157,19 @@ class Article extends React.Component {
   };
 
   onClickComfirm = (args) => {
-    const { dispatch } = this.props
+    const { dispatch, isLoggedin } = this.props
+    if (!isLoggedin) {
+      this.setState({
+        login: (
+          <Login
+            clickConfirm={this.onClickLoginSubmit}
+            clickCancel={this.onClickLoginCancel}
+            show
+          />
+        ),
+      })
+      return
+    }
     const { params } = this.props
     const articleID = params.id
     const { uuid } = window.localStorage
@@ -172,45 +189,94 @@ class Article extends React.Component {
       .catch(() => {})
   };
 
-  getFooter() {
+  getFooter = () => {
     const { displayLoading } = this.props
     if (displayLoading === 0) {
       return <Footer />
     }
     return null
-  }
+  };
 
-  getComments() {
-    const { comments, commentID } = this.props
-    if (comments === null || comments.length === 0) {
+  getComments = () => {
+    const root = this.generateCommentNodeTree()
+    if (root === null) {
       return null
     }
-    const ret = []
-    Object.keys(comments).forEach((index) => {
-      const comment = comments[index]
-      const { content, name, blog } = comment
-      const iconUrl = comment.icon_url
-      const createDate = comment.create_date
-      const currentCommentID = comment.comment_id
-      ret.push(
-        <Comment
-          key={index}
-          commentId={currentCommentID}
-          content={content}
-          name={name}
-          iconUrl={iconUrl}
-          showReply={commentID === currentCommentID}
-          blog={blog}
-          createDate={createDate}
-          clickReply={this.onClickReply}
-          clickConfirm={this.onClickComfirm}
-        />,
-      )
-    })
-    return <div className="article-page">{ret}</div>
-  }
+    const list = []
+    this.generateListWithDepth(root, list, 0)
+    return (
+      <div className="article-page">
+        <div>{list}</div>
+      </div>
+    )
+  };
 
-  onClickSubmit = (args) => {
+  generateListWithDepth = (root, list, depth) => {
+    if (root.children.length === 0) {
+      return
+    }
+    for (let i = 0; i < root.children.length; i += 1) {
+      const sub = root.children[i]
+      list.push(this.generateCommentComponent(sub, depth))
+      const d = depth + 1
+      this.generateListWithDepth(sub, list, d)
+    }
+  };
+
+  generateCommentComponent = (node, depth) => {
+    const { commentID } = this.props
+    const { content, name, blog } = node
+    const iconUrl = node.icon_url
+    const createDate = node.create_date
+    const currentCommentID = node.comment_id
+    const component = (
+      <Comment
+        key={currentCommentID}
+        commentId={currentCommentID}
+        content={content}
+        name={name}
+        iconUrl={iconUrl}
+        showReply={commentID === currentCommentID}
+        blog={blog}
+        createDate={createDate}
+        clickReply={this.onClickReply}
+        clickConfirm={this.onClickComfirm}
+        marginLeft={`${depth * 100}px`}
+      />
+    )
+    return component
+  };
+
+  // generateTree = (node, component) => {
+  // if (node.children.length <= 0) {
+  // return
+  // }
+  // const subList = []
+  // Object.keys(node.children).forEach((index) => {
+  // const subNode = node.children[index]
+  // const { content, name, blog } = subNode
+  // const iconUrl = subNode.icon_url
+  // const createDate = subNode.create_date
+  // const currentCommentID = subNode.comment_id
+  // const subComponent = (
+  // <Comment
+  // key={index}
+  // commentId={currentCommentID}
+  // content={content}
+  // name={name}
+  // iconUrl={iconUrl}
+  // // showReply={commentID === currentCommentID}
+  // blog={blog}
+  // createDate={createDate}
+  // clickReply={this.onClickReply}
+  // clickConfirm={this.onClickComfirm}
+  // />
+  // )
+  // subList.push(subComponent)
+  // })
+  // };
+
+  onClickLoginSubmit = (args) => {
     const { dispatch } = this.props
     const {
       name, email, blog, file,
@@ -232,6 +298,39 @@ class Article extends React.Component {
         })
       }
     })
+  };
+
+  onClickLoginCancel = () => {
+    this.setState({
+      login: null,
+    })
+  };
+
+  generateCommentNodeTree = () => {
+    const { comments } = this.props
+    if (comments === null || comments.length === 0) {
+      return null
+    }
+
+    const root = { parent_id: -1, children: [] }
+
+    const map = {}
+    map[-1] = root
+    Object.keys(comments).forEach((index) => {
+      const comment = comments[index]
+      comment.children = []
+      const commentId = comment.comment_id
+      if (commentId !== undefined) {
+        map[commentId] = comment
+      }
+    })
+    Object.keys(comments).forEach((index) => {
+      const comment = comments[index]
+      const parentId = comment.parent_id
+      const parent = map[parentId]
+      parent.children.push(comment)
+    })
+    return root
   };
 
   render() {
@@ -317,7 +416,6 @@ function mapStateToProps(state, ownProps) {
     if (commentID === undefined) {
       return -1
     }
-    console.log(typeof commentID)
     return commentID
   }
 

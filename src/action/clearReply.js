@@ -1,5 +1,5 @@
 /**
- * Created by wangyefeng on 2019-03-27.
+ * Created by Max on 2019-03-27.
  */
 
 import Types from './type'

@@ -1,0 +1,14 @@
+.reply-button {
+  background-color: #D0104C;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 13px;
+}
+.reply-button:hover {
+  background: #CB4042
+}

@@ -1,5 +1,5 @@
 /**
- * Created by wangyefeng on 03/03/2017.
+ * Created by Max on 03/03/2017.
  */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -12,6 +12,7 @@ import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import '../footer/footer.css'
 import FriendLink from '../../compontent/friendlink'
+import isPC from '../../utils/utils'
 
 const FriendLinks = [
   {
@@ -99,8 +100,18 @@ class List extends React.Component {
     const { displayLoading } = this.props
     return (
       <div>
-        <div className="list-base">
-          <div className="list-template">
+        <div
+          className={
+            isPC() ? 'list-base list-base-pc' : 'list-base list-base-phone'
+          }
+        >
+          <div
+            className={
+              isPC()
+                ? 'list-template list-template-pc'
+                : 'list-template list-template-phone'
+            }
+          >
             {this.getlist()}
             <Loading show={displayLoading} />
           </div>

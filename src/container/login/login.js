@@ -4,17 +4,19 @@
 import React from 'react'
 import './login.css'
 import Modal from '../modal/modal'
+import '../../compontent/reply'
 
 class Login extends Modal {
-  constructor() {
-    super()
-    this.state = {
+  constructor(props) {
+    super(props)
+    const state = {
       name: '',
       email: '',
       blog: '',
       icon: '',
       file: null,
     }
+    this.state = Object.assign({}, this.state, state)
   }
 
   onClickSubmit = () => {
@@ -59,6 +61,13 @@ class Login extends Modal {
 
   subComponent = () => (
     <div className="login-container">
+      <button
+        className="reply-button"
+        type="button"
+        onClick={this.onClickCancel}
+      >
+        close
+      </button>
       <label className="login-label" htmlFor="register">
         Name:
         <input
@@ -82,15 +91,23 @@ class Login extends Modal {
           onChange={this.changeBlog}
         />
       </label>
-      <button type="button" onClick={this.onClickSubmit}>
+      <button
+        className="reply-button"
+        type="button"
+        onClick={this.onClickSubmit}
+      >
         Submit
       </button>
       <div className="file-box">
         <img className="login-icon" alt="" src={this.state.icon} />
+        <label className="reply-button login-choose" htmlFor="upload-photo">
+          选择照片
+        </label>
         <input
+          id="upload-photo"
           type="file"
-          name="file"
-          id="input_file"
+          // name="file"
+          // id="input_file"
           accept="image/jpeg,image/jpg,image/png"
           onChange={this.onGetImage}
         />

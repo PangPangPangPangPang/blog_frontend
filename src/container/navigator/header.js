@@ -1,11 +1,12 @@
 /**
- * Created by wangyefeng on 2017-03-31 11:26
+ * Created by Max on 2017-03-31 11:26
  */
 import React from 'react'
 import { hashHistory } from 'react-router'
 import './header.css'
 import NormalButton from '../../compontent/normal_button'
 import Logo from '../../img/logo'
+import isPC from '../../utils/utils'
 
 class Header extends React.Component {
   constructor(props) {
@@ -55,11 +56,7 @@ class Header extends React.Component {
     return (
       <div className="header-base">
         <div className={`header-default ${backgroundColor}`}>
-          <NormalButton
-            title="首页"
-            img="home"
-            handleClick={this.clickHome}
-          />
+          <NormalButton title="首页" img="home" handleClick={this.clickHome} />
           <NormalButton
             title="文章"
             img="article"
@@ -71,7 +68,9 @@ class Header extends React.Component {
             img="about"
             handleClick={this.clickAbout}
           />
-          <Logo className={`header-default-icon ${iconColor}`} />
+          {isPC() ? (
+            <Logo className={`header-default-icon ${iconColor}`} />
+          ) : null}
         </div>
       </div>
     )

@@ -1,5 +1,5 @@
 /**
- * Created by wangyefeng on 2017-04-14 16:55
+ * Created by Max on 2017-04-14 16:55
  */
 
 import React from 'react' // eslint-disable-line no-unused-vars

@@ -1,5 +1,5 @@
 /**
- * Created by wangyefeng on 2019-03-02 15:22
+ * Created by Max on 2019-03-02 15:22
  */
 import React from 'react'
 import PropTypes from 'prop-types'

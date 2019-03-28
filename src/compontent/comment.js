@@ -6,15 +6,9 @@ import './comment.css'
 import PropTypes from 'prop-types'
 import { getbaseUrl } from '../action/request'
 import Reply from './reply'
+import './reply.css'
 
 class Comment extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      replyValue: '',
-    }
-  }
-
   clickIconUrl = () => {
     const { blog } = this.props
     if (blog === null || blog.length === 0) {
@@ -31,30 +25,16 @@ class Comment extends React.Component {
     clickReply(this.props)
   };
 
-  // onClickComfirm = () => {
-  // const { clickConfirm } = this.props
-  // if (clickConfirm === null) {
-  // return
-  // }
-  // const { replyValue } = this.state
-  // const args = Object.assign({}, this.props, {
-  // reply: replyValue,
-  // })
-  // clickConfirm(args)
-  // };
-
-  // handleChange = (event) => {
-  // this.setState({
-  // replyValue: event.target.value,
-  // })
-  // };
-
   replyView = () => {
     const { showReply, commentId, clickConfirm } = this.props
     if (!showReply) {
       return (
-        <button onClick={this.onClickReply} type="button">
-          reply
+        <button
+          className="reply-button"
+          onClick={this.onClickReply}
+          type="button"
+        >
+          回复
         </button>
       )
     }
@@ -63,28 +43,36 @@ class Comment extends React.Component {
 
   render() {
     const {
-      iconUrl, name, createDate, content,
+      iconUrl,
+      name,
+      createDate,
+      content,
+      subcomponent,
+      marginLeft,
     } = this.props
     return (
-      <div className="comment-container">
-        <div className="comment-info">
-          <div
-            className="comment-icon"
-            onClick={this.clickIconUrl}
-            role="presentation"
-          >
-            <img
-              className="comment-img"
-              src={`${getbaseUrl()}avatar/${iconUrl}`}
-              alt=""
-            />
+      <div className="comment-container" style={{ marginLeft }}>
+        <div>
+          <div className="comment-info">
+            <div
+              className="comment-icon"
+              onClick={this.clickIconUrl}
+              role="presentation"
+            >
+              <img
+                className="comment-img"
+                src={`${getbaseUrl()}avatar/${iconUrl}`}
+                alt=""
+              />
+            </div>
+            <div className="comment-name">{name}</div>
+            <div className="comment-date">{createDate}</div>
           </div>
-          <div className="comment-name">{name}</div>
-          <div className="comment-date">{createDate}</div>
+          <div className="comment-content">{content}</div>
+          {this.replyView()}
+          <div />
         </div>
-        <div className="comment-content">{content}</div>
-        {this.replyView()}
-        <div />
+        {subcomponent}
       </div>
     )
   }
@@ -100,6 +88,8 @@ Comment.propTypes = {
   clickConfirm: PropTypes.func,
   showReply: PropTypes.bool,
   commentId: PropTypes.number,
+  subcomponent: PropTypes.array,
+  marginLeft: PropTypes.string,
 }
 
 Comment.defaultProps = {
@@ -112,6 +102,8 @@ Comment.defaultProps = {
   clickConfirm: null,
   showReply: false,
   commentId: -1,
+  subcomponent: [],
+  marginLeft: '0px',
 }
 
 export default Comment
