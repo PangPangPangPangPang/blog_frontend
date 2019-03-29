@@ -11,6 +11,7 @@ import './reply.css'
 import { getStore } from '../App'
 import { replyComment } from '../action/reply'
 import { getLocalTime } from '../utils/utils'
+import defaultIcon from '../resource/png/default.png'
 
 class Comment extends React.Component {
   constructor(props) {
@@ -115,7 +116,9 @@ class Comment extends React.Component {
       showReply,
     } = this.props
     const formatDate = getLocalTime(createDate, 'yyyy-MM-dd hh:mm:ss')
-    const icon = iconUrl.length ? iconUrl : 'default.png'
+    const icon = iconUrl.length
+      ? `${getbaseUrl()}avatar/${iconUrl}`
+      : defaultIcon
     return (
       <div className="comment-container" style={{ marginLeft }}>
         <div>
@@ -125,11 +128,7 @@ class Comment extends React.Component {
               onClick={this.clickIconUrl}
               role="presentation"
             >
-              <img
-                className="comment-img"
-                src={`${getbaseUrl()}avatar/${icon}`}
-                alt=""
-              />
+              <img className="comment-img" src={icon} alt="" />
             </div>
             <div className="comment-name">{name}</div>
             <div className="comment-date">{formatDate}</div>

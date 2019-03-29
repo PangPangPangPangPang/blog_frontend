@@ -3,11 +3,11 @@
  */
 import React from 'react'
 import './login.css'
+import PropTypes from 'prop-types'
 import Modal from '../modal/modal'
 import '../../compontent/reply'
 import { getStore } from '../../App'
 import request from '../../action/request'
-import PropTypes from 'prop-types'
 import CloseImg from '../../img/closeImg'
 import defaultIcon from '../../resource/png/default.png'
 import { isPC } from '../../utils/utils'
@@ -110,7 +110,7 @@ class Login extends Modal {
         <label className="login-label" htmlFor="register">
           <input
             className="login-input"
-            placeholder="昵称(必填)"
+            placeholder="昵称(必填...)"
             value={this.state.name}
             type="text"
             name="name"
@@ -118,7 +118,7 @@ class Login extends Modal {
           />
           <input
             className="login-input"
-            placeholder="邮箱"
+            placeholder="邮箱(不校验哦...)"
             value={this.state.email}
             type="text"
             name="name"
@@ -126,7 +126,7 @@ class Login extends Modal {
           />
           <input
             className="login-input"
-            placeholder="博客"
+            placeholder="博客（py必备...）"
             value={this.state.blog}
             type="text"
             name="name"
@@ -138,7 +138,7 @@ class Login extends Modal {
           type="button"
           onClick={this.onClickSubmit}
         >
-          Submit
+          提交
         </button>
       </div>
     )

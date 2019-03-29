@@ -142,7 +142,7 @@ class Article extends React.Component {
         login: (
           <Login
             onLoginSuccess={this.onLoginSuccess}
-            onClickCancel={this.onLoginSuccess}
+            onClickCancel={this.onLoginCancel}
             onLoginFailure={this.onLoginFailure}
             show
           />
@@ -160,7 +160,7 @@ class Article extends React.Component {
         login: (
           <Login
             onLoginSuccess={this.onLoginSuccess}
-            onClickCancel={this.onLoginSuccess}
+            onClickCancel={this.onLoginCancel}
             onLoginFailure={this.onLoginFailure}
             show
           />
@@ -178,11 +178,18 @@ class Article extends React.Component {
     form.append('content', reply)
     form.append('parent_id', commentId)
     dispatch(request('addcomment', form, 'post'))
-      .then(() => {
-        const commentArgs = {}
-        commentArgs.article_id = params.id
-        dispatch(request('fetchcomment', commentArgs, 'get'))
-        dispatch(clearReplyComment())
+      .then((res) => {
+        const { errormsg, errorcode } = res
+        if (errorcode === 0) {
+          const commentArgs = {}
+          commentArgs.article_id = params.id
+          dispatch(request('fetchcomment', commentArgs, 'get'))
+          dispatch(clearReplyComment())
+        } else {
+          toast(errormsg, {
+            position: toast.POSITION.BOTTOM_CENTER,
+          })
+        }
       })
       .catch(() => {})
   };
@@ -234,6 +241,15 @@ class Article extends React.Component {
   };
 
   onLoginSuccess = () => {
+    toast('愉快的py吧！', {
+      position: toast.POSITION.BOTTOM_CENTER,
+    })
+    this.setState({
+      login: null,
+    })
+  };
+
+  onLoginCancel = () => {
     this.setState({
       login: null,
     })
