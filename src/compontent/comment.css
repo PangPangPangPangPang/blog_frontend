@@ -30,14 +30,11 @@
 
 .comment-content {
   font-size: 18px;
-  padding-bottom: 20px;
 }
 
 .comment-date {
   font-size: 16px;
   color: #D0104C;
-  /* padding-left: 10px; */
-  /* font-size: 20px; */
 }
 
 .comment-container {
@@ -50,3 +47,4 @@
 .comment-children {
   margin-top: 20px;
 }
+

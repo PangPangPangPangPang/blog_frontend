@@ -8,7 +8,9 @@ import '../../compontent/reply'
 import { getStore } from '../../App'
 import request from '../../action/request'
 import PropTypes from 'prop-types'
-import CloseImg from '../../img/close'
+import CloseImg from '../../img/closeImg'
+import defaultIcon from '../../resource/png/default.png'
+import { isPC } from '../../utils/utils'
 
 class Login extends Modal {
   constructor(props) {
@@ -50,7 +52,7 @@ class Login extends Modal {
 
   onGetImage = (e) => {
     const file = e.target.files[0]
-    if (file === null) {
+    if (file === undefined) {
       return
     }
     const { type } = file
@@ -83,28 +85,48 @@ class Login extends Modal {
 
   subComponent = () => {
     const { onClickCancel } = this.props
+    const { icon } = this.state
+    const chooseIcon = icon.length ? icon : defaultIcon
     return (
-      <div className="login-container">
+      <div
+        className={`login-container ${
+          isPC() ? 'login-container-pc' : 'login-container-phone'
+        }`}
+      >
         <button className="login-close" type="button" onClick={onClickCancel}>
           <CloseImg className="login-close-img" />
         </button>
+        <label htmlFor="upload-photo">
+          <img src={chooseIcon} alt="" className="login-choose" />
+        </label>
+        <input
+          id="upload-photo"
+          type="file"
+          // name="file"
+          // id="input_file"
+          accept="image/jpeg,image/jpg,image/png"
+          onChange={this.onGetImage}
+        />
         <label className="login-label" htmlFor="register">
-          Name:
           <input
+            className="login-input"
+            placeholder="昵称(必填)"
             value={this.state.name}
             type="text"
             name="name"
             onChange={this.changeName}
           />
-          email:
           <input
+            className="login-input"
+            placeholder="邮箱"
             value={this.state.email}
             type="text"
             name="name"
             onChange={this.changeEmail}
           />
-          blog:
           <input
+            className="login-input"
+            placeholder="博客"
             value={this.state.blog}
             type="text"
             name="name"
@@ -118,20 +140,6 @@ class Login extends Modal {
         >
           Submit
         </button>
-        <div className="file-box">
-          <img className="login-icon" alt="" src={this.state.icon} />
-          <label className="reply-button login-choose" htmlFor="upload-photo">
-            选择照片
-          </label>
-          <input
-            id="upload-photo"
-            type="file"
-            // name="file"
-            // id="input_file"
-            accept="image/jpeg,image/jpg,image/png"
-            onChange={this.onGetImage}
-          />
-        </div>
       </div>
     )
   };

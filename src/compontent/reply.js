@@ -34,21 +34,24 @@ class Reply extends React.Component {
   render() {
     const { replyValue } = this.state
     return (
-      <div>
+      <div className="reply-container">
         <textarea
+          className="reply-textarea"
           placeholder="随便说点什么..."
-          maxLength="100"
+          // maxLength="100"
           rows="5"
           value={replyValue}
           onChange={this.handleChange}
         />
-        <button
-          className="reply-button"
-          onClick={this.onClickConfirm}
-          type="button"
-        >
-          发送
-        </button>
+        <div>
+          <button
+            className="reply-button"
+            onClick={this.onClickConfirm}
+            type="button"
+          >
+            发送
+          </button>
+        </div>
       </div>
     )
   }

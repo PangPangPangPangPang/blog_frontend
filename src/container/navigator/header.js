@@ -5,7 +5,7 @@ import React from 'react'
 import { hashHistory } from 'react-router'
 import './header.css'
 import NormalButton from '../../compontent/normal_button'
-import Logo from '../../img/logo'
+import Logo from '../../img/logoImg'
 import { isPC } from '../../utils/utils'
 
 class Header extends React.Component {

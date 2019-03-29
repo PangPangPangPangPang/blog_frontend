@@ -35,16 +35,24 @@ button:hover {
 
 input {
   outline: none;
-  resize:none
+  resize:none;
+  border: 1px solid #d2d5d9;
+  border-radius: 4px;
+  padding: 10px;
 }
+
+input:focus {
+  border: 1px solid #D0104C;
+}
+
 textarea {
-  width: 100%;
   border: 1px solid #d2d5d9;
   border-radius: 4px;
   outline: none;
-  resize:none
+  resize: none;
+  padding: 10px;
 }
 
-textarea:hover {
+textarea:focus {
   border: 1px solid #D0104C;
 }

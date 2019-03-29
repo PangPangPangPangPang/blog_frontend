@@ -107,7 +107,12 @@ class Comment extends React.Component {
 
   render() {
     const {
-      iconUrl, name, createDate, content, marginLeft,
+      iconUrl,
+      name,
+      createDate,
+      content,
+      marginLeft,
+      showReply,
     } = this.props
     const formatDate = getLocalTime(createDate, 'yyyy-MM-dd hh:mm:ss')
     const icon = iconUrl.length ? iconUrl : 'default.png'
@@ -129,7 +134,12 @@ class Comment extends React.Component {
             <div className="comment-name">{name}</div>
             <div className="comment-date">{formatDate}</div>
           </div>
-          <div className="comment-content">{content}</div>
+          <div
+            className="comment-content"
+            style={{ paddingBottom: showReply ? '10px' : '0px' }}
+          >
+            {content}
+          </div>
           {this.replyView()}
           <div />
         </div>

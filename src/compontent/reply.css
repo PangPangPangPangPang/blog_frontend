@@ -8,7 +8,17 @@
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: 13px;
+  margin-top:10px;
 }
 .reply-button:hover {
-  background: #CB4042
+  background: #CB4042;
+}
+
+.reply-textarea {
+  right: 10px;
+}
+
+.reply-container {
+   display: flex;
+   flex-direction: column;
 }
