@@ -10,8 +10,7 @@ import Reply from './reply'
 import './reply.css'
 import { getStore } from '../App'
 import { replyComment } from '../action/reply'
-import article from '../container/article/article'
-import request from '../action/request'
+import { getLocalTime } from '../utils/utils'
 
 class Comment extends React.Component {
   constructor(props) {
@@ -26,7 +25,11 @@ class Comment extends React.Component {
     if (blog === null || blog.length === 0) {
       return
     }
-    window.location.href = blog
+    let des = blog
+    if (!blog.startsWith('http')) {
+      des = `http://${des}`
+    }
+    window.location.href = des
   };
 
   onClickReply = () => {
@@ -73,7 +76,7 @@ class Comment extends React.Component {
       const comment = this.generateCommentComponent(node)
       list.push(comment)
     }
-    return list
+    return <div className="comment-children">{list}</div>
   };
 
   generateCommentComponent = (node) => {
@@ -95,7 +98,7 @@ class Comment extends React.Component {
         createDate={createDate}
         clickReply={clickReply}
         subcomponent={node.children}
-        marginLeft="100px"
+        marginLeft="40px"
         onClickConfirm={onClickConfirm}
       />
     )
@@ -106,6 +109,8 @@ class Comment extends React.Component {
     const {
       iconUrl, name, createDate, content, marginLeft,
     } = this.props
+    const formatDate = getLocalTime(createDate, 'yyyy-MM-dd hh:mm:ss')
+    const icon = iconUrl.length ? iconUrl : 'default.png'
     return (
       <div className="comment-container" style={{ marginLeft }}>
         <div>
@@ -117,12 +122,12 @@ class Comment extends React.Component {
             >
               <img
                 className="comment-img"
-                src={`${getbaseUrl()}avatar/${iconUrl}`}
+                src={`${getbaseUrl()}avatar/${icon}`}
                 alt=""
               />
             </div>
             <div className="comment-name">{name}</div>
-            <div className="comment-date">{createDate}</div>
+            <div className="comment-date">{formatDate}</div>
           </div>
           <div className="comment-content">{content}</div>
           {this.replyView()}
@@ -150,7 +155,7 @@ Comment.propTypes = {
 }
 
 Comment.defaultProps = {
-  iconUrl: '',
+  iconUrl: 'default.png',
   name: '',
   blog: '',
   content: '',

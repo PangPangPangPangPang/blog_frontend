@@ -12,7 +12,7 @@ import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import '../footer/footer.css'
 import FriendLink from '../../compontent/friendlink'
-import isPC from '../../utils/utils'
+import { isPC } from '../../utils/utils'
 
 const FriendLinks = [
   {

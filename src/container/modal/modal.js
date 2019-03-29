@@ -9,21 +9,23 @@ import PropTypes from 'prop-types'
 class Modal extends React.Component {
   constructor(props) {
     super(props)
+    const rect = document.body.getBoundingClientRect()
     this.state = {
       height: document.body.clientHeight,
       width: document.body.clientWidth,
+      top: -rect.top,
     }
   }
 
   componentDidMount() {
     const { show } = this.props
     if (show) {
-      // document.body.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden'
     }
   }
 
   componentWillUnmount() {
-    // document.body.style.overflow = 'auto'
+    document.body.style.overflow = 'auto'
   }
 
   subComponent = () => null;
@@ -42,14 +44,14 @@ class Modal extends React.Component {
 
   render() {
     const { show } = this.props
-    const { width, height } = this.state
+    const { width, height, top } = this.state
     if (!show) {
       return null
     }
     // 该方法可以指定父组件
     return ReactDom.createPortal(
-      <div className="modal" style={{ height, width }}>
-        <div className="modal-container">{this.subComponent()}</div>
+      <div className="modal" style={{ height, width, top }}>
+        <div>{this.subComponent()}</div>
       </div>,
       document.body,
     )
