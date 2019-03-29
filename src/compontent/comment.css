@@ -11,6 +11,10 @@
   border: 1px solid #d2d5d9;
 }
 
+.comment-icon:hover {
+  cursor: pointer;
+}
+
 .comment-img {
   border-radius: 50%;
   height: 40px;

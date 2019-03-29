@@ -5,6 +5,7 @@
   border-radius: 5px;
   background: white;
   opacity: 1;
+  position: relative;
 }
 
 .login-label {
@@ -30,3 +31,21 @@
   z-index: -1;
 }
 
+
+.login-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  width: 20px;
+  height: 20px;
+}
+
+.login-close-img {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: none;
+  width: 20px;
+  height: 20px;
+}

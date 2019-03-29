@@ -26,6 +26,11 @@ a:hover {
 
 button {
   outline: none;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 input {

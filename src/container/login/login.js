@@ -8,6 +8,7 @@ import '../../compontent/reply'
 import { getStore } from '../../App'
 import request from '../../action/request'
 import PropTypes from 'prop-types'
+import CloseImg from '../../img/close'
 
 class Login extends Modal {
   constructor(props) {
@@ -84,8 +85,8 @@ class Login extends Modal {
     const { onClickCancel } = this.props
     return (
       <div className="login-container">
-        <button className="reply-button" type="button" onClick={onClickCancel}>
-          close
+        <button className="login-close" type="button" onClick={onClickCancel}>
+          <CloseImg className="login-close-img" />
         </button>
         <label className="login-label" htmlFor="register">
           Name:
