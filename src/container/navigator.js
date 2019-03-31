@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import Header from './navigator/header'
 import './navigator/header.css'
 import './navigator.css'
+import Rss from '../compontent/rss'
 
 class Navigator extends React.Component {
   static protoTypes = {
@@ -52,6 +53,7 @@ class Navigator extends React.Component {
         <Header />
         <div className="header-placeholder" />
         {this.props.children}
+        <Rss />
       </div>
     )
   }

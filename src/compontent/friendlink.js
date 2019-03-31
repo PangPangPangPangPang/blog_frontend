@@ -12,7 +12,7 @@ const FriendLink = (props) => {
     const item = list[i]
     ret.push(
       <div key={i}>
-        <a className="friend-link-name" href={item.link}>
+        <a className="friend-link-name" href={item.link} target="_blank">
           {item.name}
         </a>
         {item.description}
