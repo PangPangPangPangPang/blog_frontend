@@ -23,7 +23,7 @@ const Tag = () => {
             <li className="tag-item">leetCode刷完简单以及一半中等</li>
             <li className="tag-item">野吹全神庙</li>
             <li className="tag-item tag-line-through">博客加评论功能</li>
-            <li className="tag-item">博客加RSS</li>
+            <li className="tag-item tag-line-through">博客加RSS</li>
           </ul>
           <div className="tag-header">2018のFlag</div>
           <ul>
