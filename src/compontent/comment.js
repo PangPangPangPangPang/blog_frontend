@@ -10,7 +10,7 @@ import Reply from './reply'
 import './reply.css'
 import { getStore } from '../App'
 import { replyComment } from '../action/reply'
-import { getLocalTime } from '../utils/utils'
+import { isPC, getLocalTime } from '../utils/utils'
 import defaultIcon from '../resource/png/default.png'
 
 class Comment extends React.Component {
@@ -18,6 +18,7 @@ class Comment extends React.Component {
     super(props)
     this.state = {
       dispatch: getStore().dispatch,
+      marginLeft: isPC() ? '0px' : '0px',
     }
   }
 
@@ -87,6 +88,7 @@ class Comment extends React.Component {
     const createDate = node.create_date
     const commentID = node.comment_id
     const currentCommentID = getStore().getState().reply.commentID
+    const { marginLeft } = this.state
     const component = (
       <Comment
         key={commentID}
@@ -99,7 +101,7 @@ class Comment extends React.Component {
         createDate={createDate}
         clickReply={clickReply}
         subcomponent={node.children}
-        marginLeft="40px"
+        marginLeft={marginLeft}
         onClickConfirm={onClickConfirm}
       />
     )
@@ -120,7 +122,12 @@ class Comment extends React.Component {
       ? `${getbaseUrl()}avatar/${iconUrl}`
       : defaultIcon
     return (
-      <div className="comment-container" style={{ marginLeft }}>
+      <div
+        className={`comment-container ${
+          isPC() ? 'comment-container-pc' : 'comment-container-phone'
+        }`}
+        style={{ marginLeft }}
+      >
         <div>
           <div className="comment-info">
             <div

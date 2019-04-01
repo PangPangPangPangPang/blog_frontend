@@ -20,8 +20,7 @@ import Comment from '../../compontent/comment'
 import Login from '../login/login'
 import Reply from '../../compontent/reply'
 import 'react-toastify/dist/ReactToastify.css'
-
-// import { debuglog } from 'util'
+import { isPC } from '../../utils/utils'
 
 const renderer = new marked.Renderer()
 
@@ -213,7 +212,15 @@ class Article extends React.Component {
       const comment = this.generateCommentComponent(node)
       list.push(comment)
     }
-    return <div className="article-page">{list}</div>
+    return (
+      <div
+        className={`article-page ${
+          isPC() ? 'article-page-pc' : 'article-page-phone'
+        }`}
+      >
+        {list}
+      </div>
+    )
   };
 
   generateCommentComponent = (node) => {

@@ -38,10 +38,17 @@
 }
 
 .comment-container {
-  border: 1px solid #d2d5d9;
   border-radius: 4px;
-  padding: 20px;
   margin-bottom: 10px;
+}
+
+.comment-container-pc {
+  padding: 20px;
+  border: 1px solid #d2d5d9;
+}
+
+.comment-container-phone {
+
 }
 
 .comment-children {
