@@ -115,6 +115,9 @@ class Article extends React.Component {
     super()
     this.state = {
       login: null,
+      pageClass: `article-page ${
+        isPC() ? 'article-page-pc' : 'article-page-phone'
+      }`,
     }
   }
 
@@ -212,15 +215,8 @@ class Article extends React.Component {
       const comment = this.generateCommentComponent(node)
       list.push(comment)
     }
-    return (
-      <div
-        className={`article-page ${
-          isPC() ? 'article-page-pc' : 'article-page-phone'
-        }`}
-      >
-        {list}
-      </div>
-    )
+    const { pageClass } = this.state
+    return <div className={pageClass}>{list}</div>
   };
 
   generateCommentComponent = (node) => {
@@ -297,15 +293,15 @@ class Article extends React.Component {
 
   render() {
     const { args, displayLoading, content } = this.props
-    const { login } = this.state
+    const { login, pageClass } = this.state
     articleObject = args
     return (
       <div>
-        <div className="article-page">
+        <div className={pageClass}>
           <Loading show={displayLoading} />
           <div dangerouslySetInnerHTML={{ __html: marked(content) }} />
         </div>
-        <div className="article-page">
+        <div className={pageClass}>
           <Reply clickConfirm={this.onClickConfirm} />
         </div>
         {this.getComments()}
