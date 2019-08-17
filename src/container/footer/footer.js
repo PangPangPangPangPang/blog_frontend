@@ -7,9 +7,11 @@ import './footer.css'
 import PropTypes from 'prop-types'
 import weiboImg from '../../img/weiboImg'
 import githubImg from '../../img/githubImg'
+import twitterImg from '../../img/twitterImg'
 
 const Footer = (props) => {
   const Weibo = weiboImg
+  const Twitter = twitterImg
   const Github = githubImg
   const getClazzName = () => {
     if (props.color === 'white') {
@@ -26,6 +28,9 @@ const Footer = (props) => {
   const clickWeibo = () => {
     window.location.href = 'http://weibo.com/mmmmmmaxx'
   }
+  const clickTwitter = () => {
+    window.location.href = 'https://twitter.com/Maxxxxxx__'
+  }
   const clickGithub = () => {
     window.location.href = 'http://www.github.com/PangPangPangPangPang'
   }
@@ -36,7 +41,7 @@ const Footer = (props) => {
         Powered by Max.
       </div>
       <div className="footer-icons">
-        <Weibo className={getIconClazz()} onClick={clickWeibo} />
+        <Twitter className={getIconClazz()} onClick={clickTwitter} />
         <Github className={getIconClazz()} onClick={clickGithub} />
       </div>
     </div>
