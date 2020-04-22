@@ -1,22 +1,22 @@
 self.__precacheManifest = [
   {
-    "revision": "c0186980899ff1fc692e",
-    "url": "/static/css/main.a1b61f09.chunk.css"
+    "revision": "4a8416aad57bedcb92d6",
+    "url": "/static/css/main.4525d299.chunk.css"
   },
   {
-    "revision": "c0186980899ff1fc692e",
-    "url": "/static/js/main.35fe5244.chunk.js"
+    "revision": "4a8416aad57bedcb92d6",
+    "url": "/static/js/main.abbd382b.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "2d2d83c764cf4cc8066f",
-    "url": "/static/css/2.d66fb07a.chunk.css"
+    "revision": "a81d4dad34a264e90c8f",
+    "url": "/static/css/2.f3777680.chunk.css"
   },
   {
-    "revision": "2d2d83c764cf4cc8066f",
+    "revision": "a81d4dad34a264e90c8f",
     "url": "/static/js/2.e44640f9.chunk.js"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/static/media/splatoon.6c86f617.png"
   },
   {
-    "revision": "8c1d436c389ab067b5091ecce82868b3",
+    "revision": "94d3e3c692e6e76727e8122c9707339b",
     "url": "/index.html"
   }
 ];

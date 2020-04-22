@@ -8,7 +8,7 @@ import { getStore } from '../App'
 let baseUrl = 'http://localhost:8080/'
 
 if (process.env.NODE_ENV === 'production') {
-  baseUrl = 'https://mmmmmax.cn/'
+  baseUrl = 'https://maxxxxx.life/'
 }
 
 export function getbaseUrl() {
