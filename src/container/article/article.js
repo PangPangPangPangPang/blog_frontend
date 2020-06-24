@@ -12,7 +12,8 @@ import request from '../../action/request'
 import { replyComment, clearReplyComment } from '../../action/reply'
 import updateCurrentArticle from '../../action/user'
 import './article.css'
-import { getStore } from '../../App'
+import store from '../../utils/config'
+import { isPC } from '../../utils/utils'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import DevImage from '../../resource/jpg/splatoon.png'
@@ -20,7 +21,7 @@ import Comment from '../../compontent/comment'
 import Login from '../login/login'
 import Reply from '../../compontent/reply'
 import 'react-toastify/dist/ReactToastify.css'
-import { isPC } from '../../utils/utils'
+
 
 const renderer = new marked.Renderer()
 
@@ -125,8 +126,7 @@ class Article extends React.Component {
     window.scrollTo(0, 0)
     const { dispatch, params } = this.props
     const dic = { id: params.id }
-    const store = getStore()
-    if (store.getState().request[params.id]) {
+    if (store().getState().request[params.id]) {
       return
     }
     const commentArgs = {}

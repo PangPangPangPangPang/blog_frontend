@@ -3,9 +3,10 @@
  */
 
 import Type from './type'
-import { getStore } from '../App'
+import store from '../utils/config'
 
 let baseUrl = 'http://localhost:8080/'
+
 
 if (process.env.NODE_ENV === 'production') {
   baseUrl = 'https://maxxxxx.life/'
@@ -47,7 +48,7 @@ export default function request(url, params, method) {
   }
   reqparams.method = requestMethod
 
-  getStore().dispatch(requestAction(Type.REQUEST_START, url, {}))
+  store().dispatch(requestAction(Type.REQUEST_START, url, {}))
 
   return dispatch => fetch(requestUrl, reqparams)
     .then(res => res.json())

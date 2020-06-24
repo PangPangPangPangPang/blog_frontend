@@ -8,16 +8,17 @@ import PropTypes from 'prop-types'
 import { getbaseUrl } from '../action/request'
 import Reply from './reply'
 import './reply.css'
-import { getStore } from '../App'
-import { replyComment } from '../action/reply'
 import { isPC, getLocalTime } from '../utils/utils'
+import store from '../utils/config'
+import { replyComment } from '../action/reply'
+
 import defaultIcon from '../resource/png/default.png'
 
 class Comment extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      dispatch: getStore().dispatch,
+      dispatch: store().dispatch,
       marginLeft: isPC() ? '0px' : '0px',
     }
   }
@@ -87,7 +88,7 @@ class Comment extends React.Component {
     const iconUrl = node.icon_url
     const createDate = node.create_date
     const commentID = node.comment_id
-    const currentCommentID = getStore().getState().reply.commentID
+    const currentCommentID = store().getState().reply.commentID
     const { marginLeft } = this.state
     const component = (
       <Comment

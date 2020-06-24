@@ -6,7 +6,7 @@ import './login.css'
 import PropTypes from 'prop-types'
 import Modal from '../modal/modal'
 import '../../compontent/reply'
-import { getStore } from '../../App'
+import store from '../../utils/config'
 import request from '../../action/request'
 import CloseImg from '../../img/closeImg'
 import defaultIcon from '../../resource/png/default.png'
@@ -21,7 +21,7 @@ class Login extends Modal {
       blog: '',
       icon: '',
       file: null,
-      dispatch: getStore().dispatch,
+      dispatch: store().dispatch,
     }
     this.state = Object.assign({}, this.state, state)
   }

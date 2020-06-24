@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import './list.css'
 import Summary from '../../compontent/summary'
 import request from '../../action/request'
-import { getStore } from '../../App'
+import store from '../../utils/config'
 import Loading from '../../compontent/loading'
 import Footer from '../footer/footer'
 import '../footer/footer.css'
@@ -54,13 +54,13 @@ class List extends React.Component {
     super(props)
     this.showFooter = false
     this.state = {
-      content: getStore().getState().request.list || {},
+      content: store().getState().request.list || {},
     }
   }
 
   componentDidMount() {
     const { dispatch } = this.props
-    const state = getStore().getState()
+    const state = store().getState()
     if (!state.request.list) {
       dispatch(request('list'))
     }
