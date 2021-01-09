@@ -1,13 +1,13 @@
-import React from 'react'
-import './rss.css'
-import rssImg from '../img/rssImg'
-import { getbaseUrl } from '../action/request'
+import React from "react";
+import "./rss.css";
+import rssImg from "../img/rssImg";
+import { getbaseUrl } from "../action/request";
 
 const Rss = () => {
-  const Img = rssImg
+  const Img = rssImg;
   const onClickRss = () => {
-    window.open(`${getbaseUrl()}feed`)
-  }
+    window.open(`${getbaseUrl()}feed`);
+  };
   return (
     <div
       className="rss-container"
@@ -18,7 +18,7 @@ const Rss = () => {
     >
       <Img className="rss-image" />
     </div>
-  )
-}
+  );
+};
 
-export default Rss
+export default Rss;

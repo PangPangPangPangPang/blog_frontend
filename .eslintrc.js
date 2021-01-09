@@ -1,53 +1,39 @@
 module.exports = {
-  // "extends": "eslint:recommended",
-  "extends": "airbnb",
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
-  ],
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"]  }],
-    "prefer-stateless-function": [1, { "ignorePureComponents": true  }],
-    "indent": [
-      "error",
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ],
-    "prefer-stateless-function": [
-      0,
-      { "ignorePureComponents": true }
-    ],
-    "indent": [
-      2,
-      2,
-      { "SwitchCase": 1 }
-    ],
-    "react/jsx-uses-vars": [
-      1
-    ]
-  }
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"@typescript-eslint"
+	],
+	"rules": {
+		"no-mixed-spaces-and-tabs": 0,
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"double"
+		],
+		"semi": [
+			"error",
+			"always"
+		]
+	}
 };

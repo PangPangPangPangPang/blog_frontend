@@ -3,48 +3,50 @@
  */
 // navigator height 48px
 
-import React from 'react'
-import { hashHistory } from 'react-router'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import Header from './navigator/header'
-import './navigator/header.css'
-import './navigator.css'
-import Rss from '../compontent/rss'
+import React from "react";
+import { navigate } from "@reach/router";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Header from "./navigator/header";
+import "./navigator/header.css";
+import "./navigator.css";
+import Rss from "../compontent/rss";
 
 class Navigator extends React.Component {
-  static protoTypes = {
-    children: PropTypes.Object,
-  };
+  static get propTypes() {
+    return {
+      children: PropTypes.Object,
+    };
+  }
 
   static defaultProps = {
     children: {},
   };
 
   state = {
-    current: 'mail',
+    current: "mail",
   };
 
   handleClick = (e) => {
     switch (e.key) {
-      case 'smile':
-        hashHistory.push('about')
-        break
-      case 'home':
-        hashHistory.push('home')
-        break
-      case 'article':
-        hashHistory.push('list')
-        break
-      case 'tag':
-        hashHistory.push('tag')
-        break
+      case "smile":
+        navigate("about");
+        break;
+      case "home":
+        navigate("home");
+        break;
+      case "article":
+        navigate("list");
+        break;
+      case "tag":
+        navigate("tag");
+        break;
       default:
-        break
+        break;
     }
     this.setState({
       current: e.key,
-    })
+    });
   };
 
   render() {
@@ -55,8 +57,8 @@ class Navigator extends React.Component {
         {this.props.children}
         <Rss />
       </div>
-    )
+    );
   }
 }
 
-export default connect()(Navigator)
+export default connect()(Navigator);

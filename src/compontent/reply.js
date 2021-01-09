@@ -1,38 +1,38 @@
 /**
  * Created by Max on 2019-03-25.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import './reply.css'
+import React from "react";
+import PropTypes from "prop-types";
+import "./reply.css";
 
 class Reply extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      replyValue: '',
-    }
+      replyValue: "",
+    };
   }
 
   handleChange = (e) => {
     this.setState({
       replyValue: e.target.value,
-    })
+    });
   };
 
   onClickConfirm = () => {
-    const { clickConfirm, commentId } = this.props
-    const { replyValue } = this.state
+    const { clickConfirm, commentId } = this.props;
+    const { replyValue } = this.state;
     if (clickConfirm === undefined) {
-      return
+      return;
     }
     clickConfirm({
       commentId,
       reply: replyValue,
-    })
+    });
   };
 
   render() {
-    const { replyValue } = this.state
+    const { replyValue } = this.state;
     return (
       <div className="reply-container">
         <textarea
@@ -53,18 +53,18 @@ class Reply extends React.Component {
           </button>
         </div>
       </div>
-    )
+    );
   }
 }
 
 Reply.propTypes = {
   clickConfirm: PropTypes.func,
   commentId: PropTypes.number,
-}
+};
 
 Reply.defaultProps = {
   clickConfirm: null,
   commentId: -1,
-}
+};
 
-export default Reply
+export default Reply;

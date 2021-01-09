@@ -1,17 +1,17 @@
 /**
  * Created by Max on 05/03/2017.
  */
-import React from 'react'
-import { connect } from 'react-redux'
-import './tag.css'
-import Footer from '../footer/footer'
+import React from "react";
+import { connect } from "react-redux";
+import "./tag.css";
+import Footer from "../footer/footer";
 
 const tagWindowStyle = {
   height: `${window.innerHeight - 210}px`,
-}
+};
 
 const Tag = () => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
   return (
     <div>
       <div style={{ paddingLeft: `${window.innerWidth / 2 - 100}px ` }}>
@@ -34,7 +34,7 @@ const Tag = () => {
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default connect()(Tag)
+export default connect()(Tag);

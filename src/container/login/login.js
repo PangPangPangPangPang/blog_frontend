@@ -1,96 +1,96 @@
 /**
  * Created by Max on 2019-03-25.
  */
-import React from 'react'
-import './login.css'
-import PropTypes from 'prop-types'
-import Modal from '../modal/modal'
-import '../../compontent/reply'
-import store from '../../utils/config'
-import request from '../../action/request'
-import CloseImg from '../../img/closeImg'
-import defaultIcon from '../../resource/png/default.png'
-import { isPC } from '../../utils/utils'
+import React from "react";
+import "./login.css";
+import PropTypes from "prop-types";
+import Modal from "../modal/modal";
+import "../../compontent/reply";
+import store from "../../utils/config";
+import request from "../../action/request";
+import CloseImg from "../../img/closeImg";
+import defaultIcon from "../../resource/png/default.png";
+import { isPC } from "../../utils/utils";
 
 class Login extends Modal {
   constructor(props) {
-    super(props)
+    super(props);
     const state = {
-      name: '',
-      email: '',
-      blog: '',
-      icon: '',
+      name: "",
+      email: "",
+      blog: "",
+      icon: "",
       file: null,
       dispatch: store().dispatch,
-    }
-    this.state = Object.assign({}, this.state, state)
+    };
+    this.state = Object.assign({}, this.state, state);
   }
 
   onClickSubmit = () => {
     const {
       dispatch, name, email, blog, file,
-    } = this.state
-    const { onLoginSuccess, onLoginFailure } = this.props
-    const form = new FormData()
-    form.append('name', name)
-    form.append('file', file)
-    form.append('email', email)
-    form.append('blog', blog)
-    dispatch(request('register', form, 'post')).then((res) => {
-      const { errormsg, errorcode, result } = res
+    } = this.state;
+    const { onLoginSuccess, onLoginFailure } = this.props;
+    const form = new FormData();
+    form.append("name", name);
+    form.append("file", file);
+    form.append("email", email);
+    form.append("blog", blog);
+    dispatch(request("register", form, "post")).then((res) => {
+      const { errormsg, errorcode, result } = res;
       if (errorcode === 0) {
-        const storage = window.localStorage
-        storage.uuid = result.uuid
+        const storage = window.localStorage;
+        storage.uuid = result.uuid;
         if (onLoginSuccess) {
-          onLoginSuccess()
+          onLoginSuccess();
         }
       } else if (onLoginFailure) {
-        onLoginFailure(errormsg)
+        onLoginFailure(errormsg);
       }
-    })
+    });
   };
 
   onGetImage = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file === undefined) {
-      return
+      return;
     }
-    const { type } = file
+    const { type } = file;
     if (/^image\/\S+$/.test(type)) {
-      const src = URL.createObjectURL(file)
+      const src = URL.createObjectURL(file);
       this.setState({
         icon: src,
         file,
-      })
+      });
     }
   };
 
   changeName = (e) => {
     this.setState({
       name: e.target.value,
-    })
+    });
   };
 
   changeEmail = (e) => {
     this.setState({
       email: e.target.value,
-    })
+    });
   };
 
   changeBlog = (e) => {
     this.setState({
       blog: e.target.value,
-    })
+    });
   };
 
   subComponent = () => {
-    const { onClickCancel } = this.props
-    const { icon } = this.state
-    const chooseIcon = icon.length ? icon : defaultIcon
+    const { onClickCancel } = this.props;
+    const { icon } = this.state;
+    const chooseIcon = icon.length ? icon : defaultIcon;
     return (
       <div
         className={`login-container ${
-          isPC() ? 'login-container-pc' : 'login-container-phone'
+          isPC() ? "login-container-pc" : "login-container-phone"
         }`}
       >
         <button className="login-close" type="button" onClick={onClickCancel}>
@@ -141,7 +141,7 @@ class Login extends Modal {
           提交
         </button>
       </div>
-    )
+    );
   };
 }
 
@@ -149,12 +149,12 @@ Login.PropTypes = {
   onLoginSuccess: PropTypes.func,
   onLoginFailure: PropTypes.func,
   onClickCancel: PropTypes.func,
-}
+};
 
 Login.defaultProps = {
   onLoginSuccess: null,
   onLoginFailure: null,
   onClickCancel: null,
-}
+};
 
-export default Login
+export default Login;
