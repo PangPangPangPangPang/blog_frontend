@@ -13,7 +13,7 @@ import Article from "./container/article/article";
 import "./App.css";
 import store from "./utils/config";
 
-function App() {
+function App(): React.ReactElement {
   return (
     <Provider store={store()}>
       <Router>

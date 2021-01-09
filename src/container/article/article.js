@@ -318,6 +318,7 @@ class Article extends React.Component {
 }
 
 Article.propTypes = {
+  path: PropTypes.string,
   dispatch: PropTypes.func,
   content: PropTypes.string,
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -329,6 +330,7 @@ Article.propTypes = {
 };
 
 Article.defaultProps = {
+  path: "list/(:id)",
   dispatch: {},
   params: {},
   args: {},

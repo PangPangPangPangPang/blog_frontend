@@ -10,7 +10,7 @@ const tagWindowStyle = {
   height: `${window.innerHeight - 210}px`,
 };
 
-const Tag = () => {
+const Tag = (props: any) => {
   window.scrollTo(0, 0);
   return (
     <div>
